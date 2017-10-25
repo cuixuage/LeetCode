@@ -20,30 +20,37 @@ using std::stack;
 using std::map;
 using std::vector;
 using std::unordered_map;    //map会按照key自动排序
-vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
-    unordered_map<int,int> maptable;    //后面存在更大值的元素  保存下来
+//前提  findnums  nums中都没有重复的元素值
+vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums)
+{
+    map<int,int> maptable;    //后面存在更大值的元素  保存下来
     stack<int> numsVal;    //保存(没有更大值元素)递减序列
 
-    for(auto val:nums){
-        while(!numsVal.empty() && numsVal.top()<val){
+    for(auto val:nums)     //**************相当于初始化.对于nums数组中的每一个元素来说
+    {
+        while(!numsVal.empty() && numsVal.top()<val)
+        {
             maptable[numsVal.top()]=val;      //这些元素的后面是存在更大的VAL
             numsVal.pop();
         }
         numsVal.push(val);   //***********递减序列
     }
     vector<int> answer;
-    for(auto val:findNums){
-                                    //count存在返回1 否则0
+    for(auto val:findNums) //***********************在对应的findnums比对每一个数值是否有对应的最大值
+    {
+        //count存在返回1 否则0
         if(maptable.count(val))     //find 返回map迭代器 maptable.find(val)!=maptable.end()
             answer.push_back(maptable[val]);
 
         else answer.push_back(-1);
     }
     return answer;
+
 }
 
 //**************************测试
-int main(int argc,char** argv){
+int main(int argc,char** argv)
+{
     vector<int> findNums,Nums;
     Nums.push_back(1);
     Nums.push_back(3);
@@ -56,7 +63,8 @@ int main(int argc,char** argv){
     vector<int> ans;
     ans.reserve(64);
     ans = nextGreaterElement(findNums,Nums);
-    for(auto val:ans){
+    for(auto val:ans)
+    {
         cout<<val<<endl;
     }
     return 0;

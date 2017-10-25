@@ -66,7 +66,8 @@ public:
 
     bool hasNext()   //注意判断next是Int / list
     {
-        while(!resultStack.empty()) //********************这里必须是while循环  否则list分解后继续向下执行导致stack中仍有数据却return false
+        while(!resultStack.empty()) //********************这里必须是while循环  思考1:否则list分解后继续向下执行导致stack中仍有数据却return false
+		//考虑2:如果改为if 后面list分解全部stack.push后也return true是否可行？ 不行 不知道分解后最后一个push的是int 还是 list
         {
             if(resultStack.top().isInteger())        //top元素是int
             {
