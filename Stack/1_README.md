@@ -12,5 +12,7 @@ stack deque
 
 hasnext next的iterator问题  
 
-函数递归调用\棒球计分\encode问题\递减序列问题
+函数递归调用\棒球计分\encode问题\递减序列问题  
+
+**completed in 2017/8/29**  
 
