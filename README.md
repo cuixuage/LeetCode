@@ -1,14 +1,9 @@
-**LinkedList**  
-Á´±í 25µÀËã·¨Ìâ  À´Ô´leetcode  
-**Stack**  
-¿ªÊ¼Ë¢Ìâ  2017/10/15    
+**å·²åˆ·:**  
+LinkedList 25é¢˜   
 
+Stack   23é¢˜
 
-**ÒÑË¢:**  
-LinkedList 25Ìâ   
+Queue   1é¢˜  2017/10/29
 
-Stack   23Ìâ
-
-Queue   1Ìâ  2017/10/29
-
-¿ªÊ¼String Ë¢Ìâ  2017/10/29
+**doing**  
+å¼€å§‹String åˆ·é¢˜  2017/10/29
