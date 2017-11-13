@@ -10,14 +10,16 @@
 #include<cstring>
 #include<iostream>
 #include<string>
+#include<vector>
 #include<algorithm>
 using std::cout;
 using std::endl;
 using std::string;
-
+using std::vector;
 //******************仔细理解 + 后面我写的方法为什么不对
 //答案https://discuss.leetcode.com/topic/31404/a-short-o-n-recursive-greedy-solution/10
 //p 保存// the position for the smallest s[i]
+// '}' 标识此元素被删除
 string removeDuplicateLetters(string s)
 {
     string res;
