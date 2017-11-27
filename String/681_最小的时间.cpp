@@ -23,6 +23,7 @@ string nextClosestTime(string time) {
     string newtime="0000";
     int mins[]={600,60,10,1};
 
+	//当d==4时 内部for循环已经找了最小的时间
     for(int i=1, d=0;i<=24*60,d<4;i++)   //对于curr后面的每一分钟;注意d的作用
     {
         int next=(curr+i)%(24*60);       //思考:为什么要取余数？
