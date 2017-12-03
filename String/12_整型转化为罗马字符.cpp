@@ -12,14 +12,13 @@ string intToRoman(int num) {
     string sb;
     int length = sizeof(values)/sizeof(values[0]);  //计算数组的长度方法
     for(int i=0;i<13;i++) {             //小于values.lenght()
-        while(num >= values[i]) {
+        while(num >= values[i]) {               //这个while也很关键
             num -= values[i];
             sb  += strs[i];
         }
     }
     return sb;
 }
-
 int main(int argc,char* argv){
     cout<<intToRoman(1)<<endl;
     return 0;
