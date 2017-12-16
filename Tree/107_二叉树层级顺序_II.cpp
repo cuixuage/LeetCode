@@ -6,7 +6,7 @@
 {
     vector<vector<int>> ans;
     levelMaker(ans,root,0);
-    std::reverse(ans.begin(),ans.end());  //只能reverse iterator
+    std::reverse(ans.begin(),ans.end());  //这是将vector<int>也是迭代器了？reverse iterator
     return ans;
 }
 
