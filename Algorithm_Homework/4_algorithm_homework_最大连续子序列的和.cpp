@@ -19,7 +19,7 @@ int maxInAll(vector<int>& order)
 
     for(int i=1; i<order.size(); ++i)
     {
-        maxInHere[i] = std::max(order[i],maxInHere[i-1]+order[i]);
+        maxInHere[i] = std::max(order[i],maxInHere[i-1]+order[i]);			//¹Ø¼ü  ×ÐÏ¸Àí½â
         maxAll = std::max(maxInHere[i],maxAll);
     }
     return maxAll>0?maxAll:0;
