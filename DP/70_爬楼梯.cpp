@@ -1,8 +1,8 @@
-/*ÅÀÂ¥ÌÝ µäÐÍµÄ¶¯Ì¬¹æ»®*/
+/*çˆ¬æ¥¼æ¢¯ å…¸åž‹çš„åŠ¨æ€è§„åˆ’*/
 
 #include"func.h"
 
-//³¬Ê±
+//è¶…æ—¶
 int climbStairs(int n)
 {
     if(n==0) return 0;
@@ -11,13 +11,13 @@ int climbStairs(int n)
     else return climbStairs(n-1)+climbStairs(n-2);
 }
 
-//¿Õ¼ä»»Ê±¼ä£¿ Ê¹ÓÃÑ­»·Ìæ´úµÝ¹é
+//ç©ºé—´æ¢æ—¶é—´ï¼Ÿ ä½¿ç”¨å¾ªçŽ¯æ›¿ä»£é€’å½’
 int climbStairs2(int n)
 {
     if(n==0) return 0;
     else if(n==1) return 1;
     else if(n==2) return 2;
-    //µ± n>=3Ê±
+    //å½“ n>=3æ—¶
     int dp[n+1];
     memset(dp,0,sizeof(int)*(n+1));
     dp[0]=0;

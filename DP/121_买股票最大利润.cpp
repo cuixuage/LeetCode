@@ -1,12 +1,13 @@
 /*
-����vectorѰ��ǰ���ֵ������ֵ��Ҫ����Ÿߵ����ּ�ȥ��ŵ͵����֡�
-����˼·: ����������� ����:1 5 2 3 4 maxprofitӦΪ4
+给定vector寻找前后差值最大的数值，要求序号高的数字减去序号低的数字。
+错误思路: 最长递增子序列 反例:1 5 2 3 4 maxprofit应为4
 */
-#include "func.h"using std::cout;
+#include "func.h"
+using std::cout;
 using std::endl;
 
-//min ��¼��ǰԪ��ǰ�������е���Сֵ
-//�Ƚ� �Ѿ������maxprofit �� value[i]-min�Ĳ�ֵ����
+//min 记录当前元素前面所有中的最小值
+//比较 已经保存的maxprofit 和 value[i]-min的差值区别
 int maxProfit(vector<int>& prices) {
     int valMin = INT_MAX;
     int profit = 0;
