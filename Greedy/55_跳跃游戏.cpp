@@ -17,9 +17,9 @@ e.g 2 3 1 1 1 4
 //accept
 bool canJump(vector<int>& nums){
     if(nums.size()==0 || nums.size()==1) return true;
-    int max_index = 0;
+    int max_index = 0;      //final index
     int next_i = 0;
-    bool res = false;
+    //bool res = false;
     for(int i=0;i<nums.size();){
         for(int j=i;j<nums.size() && j<=nums[i]+i;j++){
             if(nums[j]+j >= max_index){
