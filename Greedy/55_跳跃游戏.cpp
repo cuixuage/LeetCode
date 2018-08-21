@@ -39,7 +39,7 @@ bool canJump(vector<int>& nums){
 //discuss 简单
 //线性的时间O(N)
 public boolean canJump(int[] A) {
-    int max = 0;
+    int max = 0;                        //当前最远到达的位置
     for(int i=0;i<A.length;i++){
         if(i>max) {return false;}       //永远也无法到达
         max = Math.max(A[i]+i,max);
