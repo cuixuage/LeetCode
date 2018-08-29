@@ -23,7 +23,7 @@ public:
 private:
     TreeNode* first = NULL;
     TreeNode* second = NULL;
-    TreeNode* preElement = new TreeNode(INT_MIN);
+    TreeNode* preElement = new TreeNode(INT_MIN);       //最好还是不要依赖INT_MIN INT_MAX
     void traverse(TreeNode*root){
         if (root==NULL) return;
         traverse(root->left);
