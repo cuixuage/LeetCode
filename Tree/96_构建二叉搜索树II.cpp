@@ -41,7 +41,7 @@ int numTrees(int n){
     for(int m=2;m<=n;++m){
         //遍历一遍G(m)元素  分别作为root节点
         for(int i=1;i<=m;++i){
-            ans[m] += ans[i-1] + ans[m-i];
+            ans[m] += ans[i-1] * ans[m-i];
         }
     }
     return ans[n];
