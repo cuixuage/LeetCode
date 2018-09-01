@@ -10,7 +10,7 @@ Queue   1题   	 2017/10/29
    
 
 **now doing**    
-牛客网 leetcode高频题目 
+牛客网 leetcode高频题目   
 completed:  
 greedy  
 tree/binary-search tree  

@@ -1,8 +1,8 @@
 /*
-stack1 ±£´æËùÓĞÔªËØ
-stack2 ±£´æµ±Ç°×îĞ¡ÔªËØ
-pop: if(!s2.empty() && s2.top()==s1.top()) s2.pop(); ÔÙÉ¾³ıs1.top()
-push£ºs1.push() ; if(s2.empty() || x<=s2.top()) s2.push(x);ÕâÀïÊÇĞ¡ÓÚµÈÓÚ
+stack1 ä¿å­˜æ‰€æœ‰å…ƒç´ 
+stack2 ä¿å­˜å½“å‰æœ€å°å…ƒç´ 
+pop: if(!s2.empty() && s2.top()==s1.top()) s2.pop(); å†åˆ é™¤s1.top()
+pushï¼šs1.push() ; if(s2.empty() || x<=s2.top()) s2.push(x);è¿™é‡Œæ˜¯å°äºç­‰äº
 */
 
 
@@ -14,19 +14,19 @@ public:
     int top();
     int getMin();
 private:
-    stack<int> s1;   //±£´æËùÓĞÔªËØ
-    stack<int> s2;   //top´æ´¢×îĞ¡Öµ
+    stack<int> s1;   //ä¿å­˜æ‰€æœ‰å…ƒç´ 
+    stack<int> s2;   //topå­˜å‚¨æœ€å°å€¼
 };
 
 MinStack::MinStack(){}
 
 void MinStack::push(int x){
     s1.push(x);
-    if(s2.empty() || x<=s2.top()) s2.push(x);    //s2.top±£´æ×îĞ¡Öµ    //ÌØ±ğĞèÒª×¢ÒâÕâÀïÊÇ*******Ğ¡ÓÚµÈÓÚ*****¶ø·ÇĞ¡ÓÚ
+    if(s2.empty() || x<=s2.top()) s2.push(x);    //s2.topä¿å­˜æœ€å°å€¼    //ç‰¹åˆ«éœ€è¦æ³¨æ„è¿™é‡Œæ˜¯*******å°äºç­‰äº*****è€Œéå°äº
 }
 
 void MinStack::pop(){
-    if(!s2.empty() && s2.top()==s1.top()) s2.pop();    //É¾³ıµÄÊÇ×îĞ¡Öµ
+    if(!s2.empty() && s2.top()==s1.top()) s2.pop();    //åˆ é™¤çš„æ˜¯æœ€å°å€¼
     s1.pop();
 }
 
