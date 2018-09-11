@@ -1,55 +1,41 @@
-//leetcode 127 https://leetcode.com/problems/word-ladder/discuss/40707/Easy-76ms-C++-Solution-using-BFS
+//ç»™å®šä¸¤ä¸ªå•è¯ï¼ˆbeginWordå’ŒendWordï¼‰å’Œä¸€ä¸ªå­—å…¸çš„å•è¯åˆ—è¡¨ï¼Œæ‰¾åˆ°ä»beginWordåˆ°endWordçš„æœ€çŸ­è½¬æ¢åºåˆ—çš„é•¿åº¦
+//begin endæ²¡æœ‰é‡å¤å­—ç¬¦,éƒ½ä¸ä¸ºç©ºï¼Œé•¿åº¦å¤§å°ç›¸åŒ
 
-//¸ø¶¨Á½¸öµ¥´Ê£¨beginWordºÍendWord£©ºÍÒ»¸ö×ÖµäµÄµ¥´ÊÁĞ±í£¬ÕÒµ½´ÓbeginWordµ½endWordµÄ×î¶Ì×ª»»ĞòÁĞµÄ³¤¶È£¬ÀıÈç£º
-//Ò»´ÎÖ»ÄÜ¸ü¸ÄÒ»¸ö×ÖÄ¸¡£
-//Ã¿¸ö×ª»»µÄµ¥´Ê±ØĞë´æÔÚÓÚµ¥´ÊÁĞ±íÖĞ¡£ĞèÒª×¢ÒâµÄÊÇbeginWordÊÇ²»ÊÇ±ä»»´Ê¡£
+#include "func.h"
 
-#include <iostream>
-#include <stdlib.h>
-#include <algorithm>
-#include <vector>
-#include <queue>
-using std::cout;
-using std::endl;
-using std::string;
-using std::queue;
-using std::vector;
-void addNextWords(string ,vector<string>& ,queue<string>& );
-
-
-//×ĞÏ¸Àí½âBFSµÄË¼Ïë
-//Ã¿Ò»²ãÏà¶ÔÓÚÉÏÒ»²ã¶¼Ö»Ïà²îÒ»¸ö×Ö·û
-//Ã¿Ò»²ãµÄqueueÊÇÈçºÎ¸ù¾İunorderset¹¹Ôì³öÀ´µÄ£¿£¿
-//**********³¬Ê±   °Ñvector»»³Éunordered_setÓ¦¸Ã¿ÉÒÔ¿ì²»ÉÙ
+//ä»”ç»†ç†è§£BFSçš„æ€æƒ³
+//æ¯ä¸€å±‚ç›¸å¯¹äºä¸Šä¸€å±‚éƒ½åªç›¸å·®ä¸€ä¸ªå­—ç¬¦
+//æ¯ä¸€å±‚çš„queueæ˜¯å¦‚ä½•æ ¹æ®unordersetæ„é€ å‡ºæ¥çš„ï¼Ÿï¼Ÿ
+//**********è¶…æ—¶   æŠŠvectoræ¢æˆunordered_setåº”è¯¥å¯ä»¥å¿«ä¸å°‘
 int ladderLength(string beginword, string endword, vector<string>& worddict){
     //worddict.push_back(endword);
     queue<string> tovisit;
-    addNextWords(beginword,worddict,tovisit);               //³õÊ¼»¯tovisit Ö»±£´æºÍbeginwordÏà²îÒ»¸ö×Ö·ûµÄµ¥´Ê
+    addNextWords(beginword,worddict,tovisit);               //åˆå§‹åŒ–tovisit åªä¿å­˜å’Œbeginwordç›¸å·®ä¸€ä¸ªå­—ç¬¦çš„å•è¯
     int dist = 2;
     while(!tovisit.empty()){
         int num = tovisit.size();
         for(int i=0;i<num;i++){
             string word = tovisit.front();
             tovisit.pop();
-            if(word == endword) return dist;                //BFS Í¬Ò»²ã¼¶µÄÉî¶ÈÊÇÏàÍ¬µÄ return distÒ²¾ÍÊÇÊÇ×î¶ÌµÄ
-            addNextWords(word,worddict,tovisit);            //¹¹½¨wordµ¥´ÊµÄÏÂÒ»¸ö²ã¼¶µÄqueue
+            if(word == endword) return dist;
+            addNextWords(word,worddict,tovisit);
         }
         dist++;
     }
-    return 0;
+    return 0;       //æ²¡æœ‰æ‰¾åˆ°ç»“æœ
 }
 
 //word == tovisit.front()
-//ÔÚworddictÖĞÑ°ÕÒÏà¶ÔÓÚwordÓÖ¸Ä±äÁËÒ»¸ö×Ö·ûµÄµ¥´Ê
+//åœ¨worddictä¸­å¯»æ‰¾ç›¸å¯¹äºwordåˆæ”¹å˜äº†ä¸€ä¸ªå­—ç¬¦çš„å•è¯
 void addNextWords(string word,vector<string>& wordDict,queue<string>& toVisit){
-    wordDict.erase(std::remove(wordDict.begin(), wordDict.end(), word), wordDict.end());
+    wordDict.erase(std::remove(wordDict.begin(), wordDict.end(), word), wordDict.end());		//å®å‚ä¼ é€’ eraseç›¸å½“äºæ ‡è®°å·²éå†
     for(int p=0;p<(int)word.length();p++){
         char letter = word[p];
         for(int k=0;k<26;k++){
             word[p] = 'a' + k;
             if(std::find(wordDict.begin(),wordDict.end(),word) != wordDict.end()){
                 toVisit.push(word);
-                wordDict.erase(std::remove(wordDict.begin(), wordDict.end(), word), wordDict.end());            //É¾³ı±»Ê¹ÓÃ¹ıµÄword
+                wordDict.erase(std::remove(wordDict.begin(), wordDict.end(), word), wordDict.end());            //åˆ é™¤è¢«ä½¿ç”¨è¿‡çš„word  ç›¸å½“äºæ ‡è®°å·²éå†
             }
         }
         word[p] = letter;
@@ -65,15 +51,13 @@ int main(int argc,char**argv){
 
 }
 
-
-//ÓÉÓÚÃ¿´ÎÖ»ÄÜ¸ü¸ÄÒ»¸ö×ÖÄ¸£¬Èç¹ûÎÒÃÇ´ÓÒ»¿ªÊ¼"hit"£¬ÎÒÃÇÖ»ÄÜ¸ü¸ÄÎªÄÇĞ©Ö»ÓĞÒ»¸ö×ÖÄ¸µÄµ¥´Ê£¬ÀıÈç"hot"¡£ÒÔÍ¼ÂÛµÄ·½Ê½À´Ëµ£¬ÎÒÃÇ¿ÉÒÔËµÕâ"hot"ÊÇÒ»¸öÁÚ¾Ó"hit"¡£
-//Õâ¸öÏë·¨ºÜ¼òµ¥£¬ÏÈÀ´¿´¿´startËüµÄÁÚ¾Ó£¬È»ºó°İ·ÃÆäÁÚ¾ÓµÄÎ´·ÃÎÊÁÚ¾Ó......àÅ£¬ÕâÖ»ÊÇµäĞÍµÄBFS½á¹¹¡£
+//leetcode 127 https://leetcode.com/problems/word-ladder/discuss/40707/Easy-76ms-C++-Solution-using-BFS
+//ç”±äºæ¯æ¬¡åªèƒ½æ›´æ”¹ä¸€ä¸ªå­—æ¯ï¼Œå¦‚æœæˆ‘ä»¬ä»ä¸€å¼€å§‹"hit"ï¼Œæˆ‘ä»¬åªèƒ½æ›´æ”¹ä¸ºé‚£äº›åªæœ‰ä¸€ä¸ªå­—æ¯çš„å•è¯ï¼Œä¾‹å¦‚"hot"ã€‚ä»¥å›¾è®ºçš„æ–¹å¼æ¥è¯´ï¼Œæˆ‘ä»¬å¯ä»¥è¯´è¿™"hot"æ˜¯ä¸€ä¸ªé‚»å±…"hit"ã€‚
+//è¿™ä¸ªæƒ³æ³•å¾ˆç®€å•ï¼Œå…ˆæ¥çœ‹çœ‹startå®ƒçš„é‚»å±…ï¼Œç„¶åæ‹œè®¿å…¶é‚»å±…çš„æœªè®¿é—®é‚»å±…......å—¯ï¼Œè¿™åªæ˜¯å…¸å‹çš„BFSç»“æ„ã€‚
 //
-//ÎªÁË¼ò»¯ÎÊÌâ£¬ÎÒÃÇ²åÈëendµ½dict¡£
-//ÎÒÃÇdistÎª±ä»»µÄµ±Ç°¾àÀë±£ÁôÒ»¸ö±äÁ¿£¬²¢dist++ÔÚÍê³ÉÒ»ÂÖBFSËÑË÷£¨Çë×¢Òâ£¬ËüÓ¦¸Ã·ûºÏÎÊÌâÃèÊöÖĞ¾àÀëµÄ¶¨Òå£©ºó½øĞĞ¸üĞÂ¡£
-//´ËÍâ£¬Îª±ÜÃâ¶à´Î·ÃÎÊÄ³¸öµ¥´Ê£¬ÎÒÃÇ»áÔÚ·ÃÎÊ¸Ãµ¥´Êdictºó½«ÆäÉ¾³ı
-
-
+//ä¸ºäº†ç®€åŒ–é—®é¢˜ï¼Œæˆ‘ä»¬æ’å…¥endåˆ°dictã€‚
+//æˆ‘ä»¬distä¸ºå˜æ¢çš„å½“å‰è·ç¦»ä¿ç•™ä¸€ä¸ªå˜é‡ï¼Œå¹¶dist++åœ¨å®Œæˆä¸€è½®BFSæœç´¢ï¼ˆè¯·æ³¨æ„ï¼Œå®ƒåº”è¯¥ç¬¦åˆé—®é¢˜æè¿°ä¸­è·ç¦»çš„å®šä¹‰ï¼‰åè¿›è¡Œæ›´æ–°ã€‚
+//æ­¤å¤–ï¼Œä¸ºé¿å…å¤šæ¬¡è®¿é—®æŸä¸ªå•è¯ï¼Œæˆ‘ä»¬ä¼šåœ¨è®¿é—®è¯¥å•è¯dictåå°†å…¶åˆ é™¤
 
 //
 //
