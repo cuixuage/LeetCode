@@ -20,3 +20,5 @@ tree/binary-search tree
 98th_week	AC两道   
 99th_week	AC一道    
 100th_week  AC两道
+101th_week  AC一道第二题超时
+102th_week  AC两道 第三道连续的子组合后头看！
