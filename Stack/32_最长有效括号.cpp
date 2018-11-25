@@ -2,26 +2,31 @@
 寻找给定字符串中 最长的连续的 有效括号
 */
 
-
-//ERROR "()(()" 无法通过
+//动态规划的递推公式  http://bangbingsyb.blogspot.com/2014/11/leetcode-longest-valid-parentheses.html
+//ERROR "()(()" 无法通过  Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
 int longestValidParentheses(string s){
-    std::stack<char> mystack;
-    int count = 0;
-    int max = 0;
-    for(auto c:s){
-        if(c=='(')
-            mystack.push('(');
-        else if(!mystack.empty() && c==')'){
-            mystack.pop();
-            count += 2;
-            if(count > max) max = count;
-        }else{    
-            //mystack==0 && c==')'时  clear——count
-            count = 0;
+    std::stack<char> myStack;
+    vector<int> ans(s.length(),0);
+    if(s[0] == '(') myStack.push('(');
+    int maxCount = 0;
+    
+    for(int i=1;i<s.size();++i){
+        if(s[i] == '('){
+            myStack.push('(');
+        }else{
+            if(!myStack.empty()){
+                myStack.pop();
+                ans[i] = ans[i-1] + 2;
+            }else{ ans[i] = 0; }
         }
     }
-    return max;
+    for(auto i : ans){
+        if(i > maxCount) maxCount=i;
+    }
+    return maxCount;
 }
+
+
 //思路3: O(N)space   O(N)time
 //For example "( ) ( ( ) "would become "11011"  
 public int longestValidParentheses(String s) {
@@ -33,9 +38,9 @@ public int longestValidParentheses(String s) {
         char c=s.charAt(i);
         if(c=='(') s1.push(i);
         else{
-            if(!s1.empty()){
+            if(!s1.empty()){        //将)和其对应的(位置标记为1
                 data[i]=1;
-                data[s1.pop()]=1;
+                data[s1.pop()]=1;   
             }
         }
     }
