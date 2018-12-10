@@ -14,7 +14,7 @@
 #include<map>
 #include<unordered_map>
 #include<hash_set>
-#include <utility>          //∑Ω±„ π”√make_pair
+#include <utility>   
 #include<algorithm>
 using std::cout;
 using std::endl;
