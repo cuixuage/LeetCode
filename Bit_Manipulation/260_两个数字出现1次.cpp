@@ -22,4 +22,4 @@ vector<int> singleNumber(vector<int>& nums){
     vector<int> res={A,B};
     return res;
 }
-//
+//A,B的先后顺序没关系
