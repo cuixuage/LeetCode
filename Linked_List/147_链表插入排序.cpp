@@ -1,97 +1,35 @@
-//²åÈëÅÅĞòÊ±¼äÊÇO(n*n)
-//Ã¿´Îµ±ÎÒÃÇ¿´µ½Ò»¸övalĞ¡ÓÚÆäÏÈÇ°½ÚµãµÄ½ÚµãÊ±£¬ÎÒÃÇ´ÓÖĞheadÕÒ³öµ±Ç°½ÚµãÓ¦¸Ã±»²åÈëµÄÎ»ÖÃ¡£
-//ÓÉÓÚ¿ÉÒÔ²åÈë½Úµãhead£¬ËùÒÔÎÒÃÇ´´½¨Ò»¸önew_headÖ¸ÏòµÄ½Úµãhead
-#include<stdio.h>
-#include<iostream>
-#include<list>
-using std::cout;
-using std::endl;
+#include "func.h"
 
-class ListNode
-{
-public:
-    int val;
-    ListNode *next;
-public:
-    ListNode()
-        :val(0),next(NULL) {}
-    ListNode(int x)   //ÓĞ²Î¹¹Ôìº¯Êı
-        :val(x),next(NULL) {}
-};
-//»­Í¼Àí½â
-//ÕâÖÖÌâ¶¼ĞèÒªÒ»¸öpre½áµãÖ¸ÏòÍ·½áµã
-ListNode * insertSortList(ListNode* head)
-{
-    ListNode* new_head = new ListNode(0);
-    new_head -> next = head;
-    ListNode* pre = new_head;
+ListNode* insertionSortList(ListNode* head){
+    ListNode* dummy = new ListNode(0);
+    dummy->next = head;
+    ListNode* pre = dummy;
     ListNode* cur = head;
-    //curÇ°ÃæÒÔ¼°curÊÇÒÑÅÅĞòµÄÁ´±í
-    while (cur)
-    {
-        if (cur -> next && cur -> next -> val < cur -> val)     //cur->nextÊÇ½ÏĞ¡µÄÊıÖµ ÔÚÇ°ÃæÕÒµ½Ç¡µ±µÄÎ»ÖÃ
-        {
-            while (pre -> next && pre -> next -> val < cur -> next -> val)  //pre´ÓÍ·¿ªÊ¼Ñ°ÕÒ
-                pre = pre -> next;
-            /* Insert cur -> next after pre.*/    //pre->next´óÓÚµÈÓÚcur->next
-            ListNode* temp = pre -> next;
-            pre -> next = cur -> next;           //²åÈëcur->next
-            cur -> next = cur -> next -> next;   //Ô­À´½áµãcur->nextÒÆ³ıºóÎ»ÖÃµÄĞø½Ó
-            pre -> next -> next = temp;          //²åÈëºóÎ»ÖÃµÄĞø½Ó
-            /* Move pre back to new_head. */
-            pre = new_head;
+    /*
+    1.ä»å“¨å…µèŠ‚ç‚¹dummy å¯»æ‰¾cur-nextçš„åˆé€‚ä½ç½®
+    2.pre->nextæŒ‡å‘cur->next; é“¾æ¥åŸæœ‰çš„pre->next->next
+    3.æ›´æ–°èŠ‚ç‚¹cur å’Œ pre
+    */
+    while(cur != NULL){
+        //1.
+        if(cur->next && cur->next->val < cur->val){
+            while(pre->next && pre->next->val < cur->next->val)
+                pre = pre->next;
+            ListNode* tmp = pre->next;
+            pre->next = cur->next; //2.
+            cur->next = cur->next->next; //3. ç§»é™¤cur->nextèŠ‚ç‚¹
+            pre->next->next = tmp;//2.
+            pre = dummy;        //3.
         }
-        else cur = cur -> next;  //cur->nextÖµ´óÓÚcurÊ±
+        else
+            cur = cur->next;
     }
-    ListNode* res = new_head -> next;
-    delete new_head;
+    //é¿å…æŒ‡é’ˆæ³„éœ²
+    ListNode* res = dummy->next;
+    delete dummy;
     return res;
 }
-
-
-//*************²âÊÔ ÅÅĞò½á¹û
-void test1()
-{
-    ListNode arrayList[7];
-    for(int i=0; i<7; i++)
-    {
-        arrayList[i].next = &arrayList[i+1];
-    }
-    arrayList[6]=NULL;
-    arrayList[0].val=-1;
-    arrayList[1].val=3;
-    arrayList[2].val=3;
-    arrayList[3].val=5;
-    arrayList[4].val=7;
-    arrayList[5].val=2;
-    arrayList[6].val=0;
-    ListNode * result = insertSortList(arrayList);
-    while(result!=NULL)
-    {
-        cout<< result->val << " ";
-        result = result->next;
-    }
-}
-int main(int argc,char** argv)
-{
-    //ÔÙ²âÊÔÊäÈëÁ´±íÎª¿Õ
-    test1();
-    return 0;
-}
-
-
 /*
-//½«ĞÂÔªËØÈ¡³ö£¬´Ó×óµ½ÓÒÒÀ´ÎÓëÒÑÅÅĞòµÄÔªËØ±È½Ï£¬Èç¹ûÒÑÅÅĞòµÄÔªËØ´óÓÚĞÂÔªËØ£¬ÄÇÃ´½«¸ÃÔªËØÒÆ¶¯µ½ÏÂÒ»¸öÎ»ÖÃ£¬½Ó×ÅÔÙÓëÇ°ÃæµÄÒÑÅÅĞòµÄÔªËØ±È½Ï£¬Ö±µ½ÕÒµ½ÒÑÅÅĞòµÄÔªËØĞ¡ÓÚµÈÓÚĞÂÔªËØµÄÎ»ÖÃ£¬ÕâÊ±ÔÙ½«ĞÂÔªËØ²åÈë½øÈ¥
-void insertion_sort(int arr[], int len)
- 2 {
- 3     for (int i = 1, j = 0 ; i < len; ++i)    //¶Ô±Èlen - 1´Î£¬Ö±µ½×îºóÖ»Ê£Ò»¸öÊı
- 4     {
- 5         int temp = arr[i];  //tempÎª¹Ø¼üÊı
- 6         for (j = i - 1; j >= 0 && arr[j] > temp; --j)   //¶Ô±È¹Ø¼üÊıÇ°µÄËùÓĞÊı
- 7             arr[j + 1] = arr[j];    //ÕÒµ½±È¹Ø¼üÊı´óµÄÊıÖµ£¬²åÈëµ½¹Ø¼üÊıºóÃæ
- 8 	arr[j + 1] = temp;     //²åÈë¹Ø¼üÊı
- 9     }
-10 }
-
-//ÆäËü£ºÈç¹û±È½Ï²Ù×÷µÄ´ú¼Û±È½»»»²Ù×÷´óµÄ»°£¬¿ÉÒÔ²ÉÓÃ¶ş·Ö²éÕÒ·¨À´¼õÉÙ±È½Ï²Ù×÷µÄÊıÄ¿¡£¸ÃËã·¨¿ÉÒÔÈÏÎªÊÇ²åÈëÅÅĞòµÄÒ»¸ö±äÖÖ£¬³ÆÎª¶ş·Ö²éÕÒ²åÈëÅÅĞò
+æ’å…¥æ’åºç¬¬ä¸€å±‚å¾ªç¯
+ç¬¬äºŒå±‚å¾ªç¯ j<i && å°†jæ”¾åˆ°å‰é¢å·²æ’åºçš„åˆé€‚ä½ç½®
 */
