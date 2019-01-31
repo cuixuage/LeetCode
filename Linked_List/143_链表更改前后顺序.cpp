@@ -1,80 +1,68 @@
+#include "func.h"
 /*
-¸ø³öµ¥Á´±íL£ºL 0£¿L 1£¿£¿£¿L n -1£¿L n£¬  ÖØĞÂÅÅĞòÎª£ºL 0£¿L n£¿L 1£¿L n -1£¿L 2£¿L n -2£¿
-¸ø¶¨{1,2,3,4}£¬ÖØĞÂÅÅĞò{1,4,2,3}¡£
-
-·½·¨:ºó°ë¶ÎÁ´±í×ªÖÃ  Ç°ºóÁ½¶ÎÁ´±íÔÙ´Î½»²æÆ´½Ó   ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¶Ô±È»ØÎÄÁ´±í234ÌâÄ¿
+1.å‡åˆ†åˆ†å‰²æˆä¸¤æ¡é“¾è¡¨
+2.å°†ç¬¬äºŒæ¡é“¾è¡¨è½¬ç½®
+3.å½’å¹¶
+å¾—åˆ° 1,n,2,n-1,3,n-2....é¡ºåºçš„é“¾è¡¨
 */
 
-#include<stdio.h>
-#include<iostream>
-#include<list>
-using std::cout;
-using std::endl;
-
-class ListNode {
+class Solution{
 public:
-    int val;
-    ListNode *next;
-public:
-    ListNode()
-    :val(0),next(NULL) {}
-    ListNode(int x)   //ÓĞ²Î¹¹Ôìº¯Êı
-    :val(x),next(NULL) {}
-};
-ListNode* reverseList(ListNode* );
-//*******************************************¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¶Ô±È»ØÎÄÁ´±í234ÌâÄ¿
-ListNode* reorderList(ListNode* head) {
-    if(head == NULL || head->next == NULL || head->next->next==NULL)
+    void reorderList(ListNode* head){
+        if(head==NULL || head->next==NULL || head->next->next==NULL)
+            return ;
+        //1.
+        ListNode *slow=head,*fast=head;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        //2. [midï¼Œn]å‡éœ€è¦è¢«è½¬ç½®
+        ListNode *mid = reverseListNode(slow->next);
+        slow->next = NULL;
+        slow = head;
+        head = mergeListNode(slow,mid);
+    }
+private:
+    ListNode* reverseListNode(ListNode* head){
+        ListNode* pre = NULL;       //ä¸ä½¿ç”¨new ä¸ä¼šå¼€è¾Ÿç©ºé—´
+        ListNode* next = NULL;
+        while(head != NULL){
+            next = head->next;
+            head->next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
+    }
+    ListNode* mergeListNode(ListNode* p1,ListNode* p2){
+        // p2ååŠéƒ¨åˆ†é“¾è¡¨é•¿åº¦å°äºp1
+        ListNode* head = p1;
+        ListNode* tmp1 = NULL;
+        ListNode* tmp2 = NULL;
+        while(p2 != NULL){
+            tmp1 = p1->next;
+            tmp2 = p2->next;
+            p1->next = p2;
+            p2->next = tmp1;
+            p1 = tmp1;
+            p2 = tmp2;
+        }
         return head;
-    ListNode* slow=head;
-    ListNode* fast=head;
-    while(fast->next!=NULL&&fast->next->next!=NULL){
-        slow=slow->next;
-        fast=fast->next->next;
     }
-   // ListNode *preMiddle=slow;            //ÖĞ¼ä½Úµã(ºó°ë¶ÎÁ´±íÆğÊ¼½áµã)µÄÇ°Ò»¸ö½Úµã
-    slow->next=reverseList(slow->next);   //µÃµ½headÆğµãµÄÍêÕûÁ´±í ºó°ë¶Î½øĞĞÁË×ªÖÃ
-    ListNode *p1=head;
-    ListNode *p2=slow->next;
-    slow->next=NULL;               //³¹µ×ÇĞ¸îÎªÁ½¸öÁ´±í p1ÎªÔ­À´Ç°°ë²¿·ÖÁ´±í
-    ListNode *temp=NULL;
-    while(p2!=nullptr){      //×ÜÔªËØÎªÆæÊıÊ±ºó°ë²¿·ÖÁ´±íÉÙÒ»¸öÔªËØ
-        temp=p2->next;
-        p2->next=p1->next;  //p2²åÈëµ½ p1ºÍp1->nextÖ®¼ä
-        p1->next=p2;
-        p1=p2->next;       //¸üĞÂp1,p2
-        p2=temp;
-    }
-    return head;
-}
-ListNode* reverseList(ListNode* head) {
-    ListNode* pre=NULL;
-    ListNode* next=NULL;
-    while(head!=NULL){
-        next=head->next;
-        head->next=pre;
-        pre=head;
-        head=next;
-    }
-    //cout<<"reverse ok"<<endl;
-    return pre;
-}
-
-int main(int argc,char** argv){
-    ListNode arr1[5];
-    for(int i=0;i<4;i++){
-        arr1[i].next = &arr1[i+1];
-    }
-    arr1[4].next=NULL;
-    arr1[0].val=1;
-    arr1[1].val=2;
-    arr1[2].val=3;
-    arr1[3].val=4;
-    arr1[4].val=5;
-    ListNode * res=reorderList(arr1);
-    while(res!=NULL){
-        cout<<res->val<<endl;
-        res = res->next;
-    }
-    return 0;
+    /*
+        ListNode* mergeListNode(ListNode* p1,ListNode* p2){
+            // æ–¹å¼äºŒ
+            ListNode* head = p1;
+            ListNode* tmp = NULL;
+            while(p2 != NULL){
+                tmp = p2->next;
+                p2->next = p1->next;
+                p1->next = p2;      //p1å’Œp1->nextä¹‹é—´æ’å…¥p2
+                p1 = p2->next;
+                p2 = tmp;
+            }
+            return head;
+        }
+    */
 }
