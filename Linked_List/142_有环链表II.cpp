@@ -1,71 +1,57 @@
-/*·µ»ØÁ´±íÖĞÓĞ»·µÄ½»²æµãÆğµã ÎŞ»··µ»ØNULL
-    //ÅĞ¶ÏÊÇ·ñÁ´±íÓĞ»·
-    while(fast->next!=NULL && fast->next->next!=NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
-        if(fast==slow) return true;
-    }
+/*
+æ–¹æ³•1:
+fast slowæŒ‡é’ˆç›¸é‡èŠ‚ç‚¹meet,å’ŒheadèŠ‚ç‚¹åŒæ—¶åŒé€Ÿåº¦ç§»åŠ¨,å†ç›¸é‡èŠ‚ç‚¹å³ä¸ºentryèŠ‚ç‚¹
+(æœ‰æ•°å­¦è·ç¦»çš„æ¨å¯¼)
+æ–¹æ³•2:
+å…ˆå¾—åˆ°ç¯çš„èŠ‚ç‚¹æ•°ç›®nï¼Œä½¿å¾—meetèŠ‚ç‚¹å…ˆç§»åŠ¨næ­¥,headèŠ‚ç‚¹å†åŒæ—¶åŒé€Ÿåº¦ç§»åŠ¨,è¿™ä¸¤ä¸ªèŠ‚ç‚¹ç›¸é‡ç‚¹ä¸ºentryèŠ‚ç‚¹
+ï¼ˆæ›´åŠ ç›´è§‚ï¼Ÿï¼‰
 */
-#include<stdio.h>
-#include<iostream>
-using std::cout;
-using std::endl;
-class ListNode {
+#include "func.h"
+class Solution{
 public:
-    int val;
-    ListNode *next;
-public:
-    ListNode()
-    :val(0),next(NULL) {}
-    ListNode(int x)
-    :val(x),next(NULL) {}
-};
-//ÅĞ¶ÏÊÇ·ñÓĞ»·  ²¢·µ»Ø½»²æ½áµã
-ListNode *detectCycle(ListNode *head){
-    if(head==NULL || head->next==NULL) return NULL;
-    ListNode *slow=head;
-    ListNode *fast=head;
-    ListNode *entry=head;  //»·½»²æµã
-    while(fast!=NULL &&fast->next!=NULL){
-        slow = slow->next;
-        fast = fast->next->next;
-        if(slow==fast) break;
-    }
-    if(fast==NULL || fast->next==NULL)  //ÔªËØ¸öÊıÎªÆæÊıÊ±Í¨¹ıfast->nextÅĞ¶Ï
-        return NULL;
-
-    //ÓÉhead³ö·¢µÄentry ±ØÈ»Óë ÈÆ»·ĞĞ×ßslow½áµãÏàÓöÓÚ»·½»²æµã
-    if(slow==fast){
-        //entry=head;
-        while(entry!=slow){
-            slow = slow->next;
-            entry = entry->next;
+    ListNode* detectCycle(ListNode* head){
+        ListNode* entry = head;
+        ListNode* meet = meetingNode2(head);
+        if(meet == NULL) return NULL;
+        while(entry != meet){
+            entry  = entry->next;
+            meet = meet->next;
         }
+        return entry;
     }
-    return entry;
-}
-
-//************************²âÊÔ
-int main(int argc,char** argv){
-    ListNode arr1[10];
-    for(int i=0;i<9;i++){
-        arr1[i].val=i;
-        arr1[i].next = &arr1[i+1];
+private:
+    ListNode* meetingNode(ListNode* head){
+        // fastå¤šèµ°äº†ä¸€æ­¥ï¼Œä½¿å¾—æœ€åmeetingç‚¹çš„ä½ç½®ä¸æ»¡è¶³æ¨å¯¼å…¬å¼
+        if(head==NULL || head->next==NULL) return NULL;
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            if(fast==slow) return fast;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return NULL;
     }
-    arr1[9].val=9;
-    arr1[9].next=&arr1[5];
-    ListNode * res=detectCycle(arr1);
-    if(res==NULL) cout<<"no cycle"<<endl;
-    else cout<<"cycle entry is "<<res->val<<endl;
-
-    return 0;
+    ListNode* meetingNode2(ListNode* head){
+        if(head==NULL || head->next==NULL) return NULL;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(fast==slow) return fast;
+        }
+        return NULL;
+    }
 }
 /*
-https://leetcode.com/problems/linked-list-cycle-ii/discuss/
-
-º¬Òå: ´Óhead½áµãµ½½»²æµãµÄ³¤¶È == slowÓëfastÏàÓö½áµã¼ÌĞøÈÆ»·Ö±µ½½»²æµãµÄ¾àÀë+(n-1)*»·³¤¶È
-
-ÒÀ¾İ: fast½áµãĞĞ×ßµÄ¾àÀëÊÇslow½áµãĞĞ×ß³¤¶ÈµÄÁ½±¶
-¹Êslow²»»áÍêÕûÈÆ»·Ò»´Î  fastÔÚslow½øÈë»·Ç°¿ÉÄÜÒÑ¾­ÈÆ»·¶à´Î£¡
-2 * (L1+L2) = L1 + L2 + n * C => L1 + L2 = n * C => L1 = (n - 1) C + (C - L2)*
+è¯æ˜:
+æ ¸å¿ƒidea:  fastçš„distanceä¸¤å€äºslow distance
+L1ï¼š èµ·å§‹ç‚¹åˆ°ç¯çš„å…¥å£ç‚¹
+L2ï¼š ç¯çš„å…¥å£ç‚¹åˆ°slow.fastç›¸é‡ç‚¹
+Cï¼š ç¯çš„èŠ‚ç‚¹æ•°ç›®
+Nï¼šfastæŒ‡é’ˆç»•ç¯çš„æ¬¡æ•°
+2(L1+L2) = L1+L2+N*C
+å³ L1 = C-L2 + (N-1)*C
+å³ä»headèµ·å§‹å’ŒmeetingèŠ‚ç‚¹åŒæ—¶åŒé€Ÿåº¦,è¿™ä¸¤è€…ç›¸é‡ç‚¹å³ä¸ºå…¥å£ç‚¹
 */
