@@ -1,66 +1,34 @@
-/* ¸ø¶¨Á½¸ö²ÎÊı m n
-´ÓµÚm¸öÔªËØµ½µÚn¸öÔªËØ½øĞĞ×ªÖÃ  ÆäËü½ÚµãÎ»ÖÃ²»±ä
-ÔÙÒ»´ÎÊ¹ÓÃµ½ÁËÉÚ±ø½áµã*/
+/*
+è½¬ç½®[m,n]ä¹‹é—´çš„é“¾è¡¨,é¦–èŠ‚ç‚¹çš„åºå·æ˜¯1
+æ€è·¯1:
+å•ç‹¬å–å‡º[m,n]ä¹‹é—´é“¾è¡¨,å¯¹å…¶è½¬ç½®,å†åŠ å…¥åŸé“¾è¡¨
+æ€è·¯2:
+1.one-pass å“¨å…µèŠ‚ç‚¹ä¸ºm-1ç‚¹
+2.å°†m,nçš„èŠ‚ç‚¹æŒ‰é¡ºåºåŠ å…¥å“¨å…µèŠ‚ç‚¹åä¾§å³ä¸ºè½¬ç½®
+*/
 
-#include <iostream>
-using std::endl;
-using std::cout;
-class ListNode {
-public:
-    ListNode()
-    :val(0),next(NULL) {}
-    ListNode(int x)
-    :val(x),next(NULL) {}
-public:
-    int val;
-    ListNode* next;
-
-};
-//ListNode* reverseList(ListNode* head) {
-//    ListNode* pre=NULL;
-//    ListNode* next=NULL;
-//    while(head!=NULL){
-//        next=head->next;
-//        head->next=pre;
-//        pre=head;
-//        head=next;
-//    }
-//    return pre;
-//}
-//×ªÖÃ[m,n]Çø¼äÔªËØ  ÔÙÒ»´ÎÊ¹ÓÃµ½ÁËÉÚ±ø½áµã
-ListNode* reverseBetween(ListNode* head, int m, int n) {
-    if(head == NULL) return NULL;
-    ListNode* dummy = new ListNode(0);
-    dummy->next = head;
-    ListNode* pre = dummy;
-    for(int i = 0; i<m-1; i++) pre = pre->next;
-
-    ListNode* start = pre->next; // ´ı×ªÖÃµÄÊ×½áµã
-    ListNode* then = start->next; // ½áµãm->next
-//»­Í¼Àí½â Ã¿´Î°ÑºóÃæÒ»¸öÔªËØ²åÈëµ½pre->nextºó
-    for(int i=0; i<n-m; i++)
-    {
+#include "func.h"
+ListNode* reverseBetween(ListNode* head,int m,int n){
+    if(head==NULL) return NULL;
+    //1. å“¨å…µèŠ‚ç‚¹
+    ListNode* pre = new ListNode(0);       
+    ListNode* pre_2 = pre;
+    pre->next = head;
+    for(int i=0;i<m-1;i++) pre = pre->next;
+    /*
+    2. startæ˜¯åºå·mçš„èŠ‚ç‚¹ ä¸æ–­å°†thenåŠ å…¥preåä¾§
+    å¯¹äºæ¯ä¸€è½®æ¥è¯´,thenæ’å…¥preï¼Œpre->nextä¹‹é—´
+    thençš„å‰ç½®èŠ‚ç‚¹æ˜¯å“¨å…µèŠ‚ç‚¹, then->nextæŒ‡å‘èŠ‚ç‚¹æ˜¯pre->nextèŠ‚ç‚¹
+    */
+    ListNode* start = pre->next;
+    ListNode* then = start->next;  
+    for(int i=m;i<n;i++){
         start->next = then->next;
-        then->next = pre->next;
+        then->next = start;
         pre->next = then;
-        then = start->next;  //¸üĞÂthenÎ»ÖÃ
+        then = start->next; 
     }
-    return dummy->next;
-}
-//*********************************²âÊÔ
-int main(int argc,char** argv){
-    ListNode arr1[6];
-    for(int i=0;i<5;i++){
-        arr1[i].val = i;
-        arr1[i].next = &arr1[i+1];
-    }
-    arr1[5].val=6;
-    arr1[5].next=NULL;
-
-    ListNode * res=reverseBetween(arr1,2,5);
-    while(res!=NULL){
-        cout<<res->val<<endl;
-        res = res->next;
-    }
-    return 0;
+    ListNode* ans = pre_2->next;
+    delete pre_2;
+    return ans;
 }

@@ -1,52 +1,36 @@
-/*ÉıĞòÅÅĞòµÄÁ´±í×ª»¯ÎªBST binary search tree ¶ş²æËÑË÷Ê÷
-    µİ¹é´¦Àí×óÓÒ×ÓÊ÷
+/*
+å‡åºçš„é“¾è¡¨è½¬åŒ–ä¸ºäºŒåˆ†æŸ¥æ‰¾æ ‘(è‡ªå¹³è¡¡çš„ left<root<right)
+å…³é”®ideaï¼š
+äºŒåˆ†æŸ¥æ‰¾æ–¹å¼å¯»æ‰¾rootèŠ‚ç‚¹
+
+åŒºåˆ†TreeNode å’Œ ListNodeä¸¤ç§ç±»å‹
 */
 
-#include <stdio.h>
-#include <iostream>
-using std::endl;
-using std::cout;
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- };
-
+#include "func.h"
 class Solution{
 public:
-    TreeNode *sortedListToBST(ListNode *head){
-        if(head==NULL) return NULL;
-        return sortedListToBST(head,NULL);   //º¯ÊıÖØÔØ
+    TreeNode* sortedListToBST(ListNode* head){
+        if(head == NULL) return NULL;
+        return sortedListToBST(head,NULL);
     }
 private:
-    TreeNode *sortedListToBST(ListNode *head,ListNode *tail){
-        if(head==tail) return NULL;
-        if(head->next==tail){
-            TreeNode *root = new TreeNode(head->val);
+    TreeNode* sortedListToBST(ListNode* head, ListNode* tail){
+        if(head == tail) return NULL;
+        if(head->next == tail){
+            TreeNode* root = new TreeNode(head->val);
             return root;
         }
-        ListNode *slow = head,*fast=head;
-        //Ñ°ÕÒÖĞ¼äÎ»ÖÃ½áµã tailÊÇÎ²²¿Ö¸Õë
-        while(fast!=tail && fast->next!= tail){   //Å¼ÊıÔªËØÊ±slowÖ¸Ïòºó°ë¶ÎµÚÒ»¸öÔªËØ
-        //while(fast->next!=tail && fast->next->next!= tail) Accepted Èç´Ë¹¹½¨BSTÒ²±»ÔÊĞí
+        //å¯»æ‰¾ç‰‡æ®µçš„middleèŠ‚ç‚¹
+        ListNode* slow=head,*fast = head;
+        while(fast->next!=tail &&fast->next->next!=tail){
+        // while(fast!=tail && fast->next!=tail){  //ä¹Ÿæ˜¯æˆç«‹çš„
             slow = slow->next;
             fast = fast->next->next;
         }
-
-        TreeNode *root = new TreeNode(slow->val);
+        TreeNode* root = new TreeNode(slow->val);
         root->left = sortedListToBST(head,slow);
         root->right = sortedListToBST(slow->next,tail);
         return root;
     }
 };
-
-int main(int argc,char** argv){
-
 }

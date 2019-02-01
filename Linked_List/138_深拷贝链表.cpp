@@ -1,56 +1,37 @@
-/*Éî¿½±´Á´±í    randomÖ¸Ïònull»òÕßÁ´±íÖĞÈÎÒâÒ»¸ö½Úµã
-Definition for singly-linked list with a random pointer.
-struct RandomListNode {
-    int label;
-    RandomListNode *next, *random;
-    RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
-};
-Éî¿½±´ĞèÒª×¢Òâ:ĞÂÁ´±íÖĞµÄrandomÖ¸Õë²»ÄÜÔÙÖ¸ÏòÔ­ÓĞÁ´±íÖĞµÄ½Úµã
+/*
+ç»“æ„å®šä¹‰: ListNodeå«æœ‰nextæŒ‡é’ˆå’ŒrandomæŒ‡é’ˆ(éšæœºæŒ‡å‘ä¸€ä¸ªèŠ‚ç‚¹æˆ–è€…ä¸ºNULL)
+æ·±æ‹·è´:
+1.new ListNodeå¼€è¾Ÿæ–°ç©ºé—´
+2.ListNodeçš„nextæŒ‡é’ˆå’ŒrandomæŒ‡é’ˆæŒ‡å‘æ–°çš„èŠ‚ç‚¹
+æ³¨æ„:
+randomæ˜¯ä¸è§„å¾‹çš„,éœ€è¦ä¿å­˜æ–°æ—§èŠ‚ç‚¹åœ°å€çš„æ˜ å°„å…³ç³»,å†å»æ›¿æ¢randomæŒ‡å‘åœ°å€
 */
-#include<iostream>
-#include<map>
-#include<hash_map>
-using std::cout;
-using std::endl;
-struct RandomListNode{
-    int label;
-    RandomListNode *next;
-    RandomListNode *random;
-    RandomListNode(int x)  //º¬²Î¹¹Ôìº¯Êı
-    :label(x)
-    ,next(NULL)
-    ,random(NULL){}
-    RandomListNode()  //Ä¬ÈÏ¹¹Ôìº¯Êı
-    :label(0)
-    ,next(NULL)
-    ,random(NULL){}
-};
 
-RandomListNode *copyRandomList(RandomListNode* head){
-    if(head==NULL) return NULL;
-    RandomListNode newList(0);
-    RandomListNode *n = &newList; //ĞÂÁ´±íÍ·½áµãµÄpreÎ»ÖÃ
-    RandomListNode *h = head;
-    map<RandomListNode*,RandomListNode*> mapListNode;   //hashtableÉ¢ÁĞ±í±£´æĞÂ¾É½áµãÖ®¼äµÄ¶ÔÓ¦¹ØÏµ
-    while(h){
-        RandomListNode* node = new RandomListNode(h->label);
-        n->next = node;
-        n = node;
-
-        node->random = h->random; //ĞÂÁ´±íµÄrandomÖ¸ÕëÖ¸ÏòµÄÊÇ¾ÉÁ´±í½Úµã
-
-        mapListNode[h] = node;  //ĞÂ¾É½áµãµÄÓ³Éä¹ØÏµ
-        h = h->next;
+#include "func.h"
+RandomListNode* copyRandomList(RandomListNode* head){
+    if(head == NULL) return NULL;
+    RandomListNode* pre = new RandomListNode(0);
+    RandomListNode* pretmp = pre;
+    RandomListNode* old = head;
+    map<RandomListNode*,RandomListNode*> mapListNode;
+    while(old != NULL){
+        //1.
+        RandomListNode* newNode = new RandomListNode(old->label);
+        pre->next = newNode;
+        pre = newNode;
+        //2.
+        newNode->random = old->random;  //æ–°èŠ‚ç‚¹randomæŒ‡é’ˆæŒ‡å‘çš„æ˜¯æ—§èŠ‚ç‚¹åœ°å€
+        mapListNode[old] = newNode;
+        old = old->next;
     }
-    h = newList.next;   // h = (&newList)->next;
-    while(h!=NULL){     //ĞŞ¸ÄĞÂÁ´±íÖĞÃ¿Ò»¸örandomÖ¸ÕëÖ¸ÏòĞÂÁ´±íµÄ½áµã
-        if(h->random!=NULL)
-            h->random = mapListNode[h->random];
-        h = h->next;
+    //3. oldæŒ‡å‘æ–°é“¾è¡¨ å¼€å§‹éå†
+    old = pretmp;
+    while(old!=NULL){
+        if(old->random != NULL)
+            old->random = mapListNode[old->random];
+        old = old->next;
     }
-    return (&newList)->next;  //return newList.next Çø±ğ¶ÔÏó¡¢Ö¸Õë È¡³ÉÔ±µÄÓÃ·¨
-}
-
-int main(int argc,char** argv){
-
+    RandomListNode* ans = pretmp->next;
+    delete pretmp;
+    return ans;
 }
