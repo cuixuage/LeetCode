@@ -1,63 +1,34 @@
-/* ËùÓĞĞ¡ÓÚÄ³¸övalÖµ¶¼ÔÚ´óÓÚµÈÓÚvalÖµµÄÇ°Ãæ */
-#include<iostream>
-using std::cout;
-using std::endl;
+/*
+å°†valå°äºxçš„èŠ‚ç‚¹æ”¾åœ¨é“¾è¡¨å‰é¢,å¤§äºxçš„èŠ‚ç‚¹åœ¨é“¾è¡¨åé¢
+ä¿æŒåŸæœ‰çš„ç›¸å¯¹é¡ºåºä¸æ”¹å˜
+æ€è·¯1:
+list1ï¼Œlist2åˆ†åˆ«æŒ‡å‘å°äº,å¤§äºçš„èŠ‚ç‚¹ã€‚æœ€ç»ˆå°†list1å’Œlist2æ‹¼æ¥
+æ€è·¯2:
+åœ¨åŸé“¾è¡¨ä¸Šæ“ä½œç›¸å¯¹å¤æ‚,ä¸¤ä¸ªæŒ‡é’ˆäº¤æ¢èŠ‚ç‚¹(ä¸ä½¿ç”¨ï¼Ÿ)
+*/
 
-struct ListNode{
-    int val;
-    ListNode* next;
-    ListNode()
-    :val(0)
-    ,next(NULL){}
-    ListNode(int x)
-    :val(x)
-    ,next(NULL){}
-};
-
-ListNode *partition_test(ListNode*head ,int x){
-    ListNode node1(0),node2(0);
-    ListNode *p1=&node1,*p2=&node2;
-    while(head!=NULL){                //Ğ¡ÓÚxµÄ½áµãÁ¬½Óµ½node1
+#include "func.h"
+ListNode* partition(ListNode* head,int x){
+    ListNode* pre1 = new ListNode(0);
+    ListNode* pre2 = new ListNode(0);
+    ListNode* pre1tmp = pre1;
+    ListNode* pre2tmp = pre2;
+    while(head != NULL){
         if(head->val < x){
-            p1->next = head;
-            p1 = p1->next;
+            pre1->next = head;
+            pre1 = pre1->next;
+        }else{
+            pre2->next = head;
+            pre2 =  pre2->next;
         }
-        else{                          //´óÓÚµÈÓÚxµÄ½áµãÁ¬½Óµ½node2
-            p2->next = head;
-            p2 = p2->next;
-        }
-        head = head->next;             //´Ë²½ÖèÎğÍü
+        head = head->next;
     }
-    p2->next = NULL;
-    p1->next = node2.next;
-    return node1.next;
-}
-
-//*****************************²âÊÔ
-int main(int argc,char** argv){
-    ListNode arr1[6];
-    arr1[0].val=6;
-    arr1[0].next=&arr1[1];
-
-    arr1[1].val=5;
-    arr1[1].next=&arr1[2];
-
-    arr1[2].val=4;
-    arr1[2].next=&arr1[3];
-
-    arr1[3].val=3;
-    arr1[3].next=&arr1[4];
-
-    arr1[4].val=2;
-    arr1[4].next=&arr1[5];
-
-    arr1[5].val=1;
-    arr1[5].next=NULL;
-    cout<<"ok1"<<endl;
-    ListNode * res=partition_test(arr1,3);
-    while(res!=NULL){
-        cout<<res->val<<endl;
-        res = res->next;
-    }
-    return 0;
+    //æ‹¼æ¥list1 list2; å°¾èŠ‚ç‚¹nextæŒ‡é’ˆç½®ç©º
+    pre1->next = pre2tmp->next;
+    pre2->next = NULL;
+    
+    ListNode* ans = pre1tmp->next;
+    delete pre1tmp;
+    delete pre2tmp;
+    return ans;
 }

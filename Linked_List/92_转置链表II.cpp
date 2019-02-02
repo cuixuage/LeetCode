@@ -24,7 +24,7 @@ ListNode* reverseBetween(ListNode* head,int m,int n){
     ListNode* then = start->next;  
     for(int i=m;i<n;i++){
         start->next = then->next;
-        then->next = start;
+        then->next = pre->next;
         pre->next = then;
         then = start->next; 
     }
