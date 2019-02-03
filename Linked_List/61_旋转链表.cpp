@@ -1,65 +1,61 @@
-/*ÏòÓÒĞı×ªk¸öÎ»ÖÃ kÊÇ·Ç¸ºÊı
+ /*
+ ä»å€’æ•°ç¬¬kä¸ªçš„èŠ‚ç‚¹ æ”¾ç½®åœ¨é“¾è¡¨æœ€å‰ kå¯èƒ½å¤§äºé“¾è¡¨é•¿åº¦
 Given 1->2->3->4->5->NULL and k = 2,
 return 4->5->1->2->3->NULL.
-×¢Òâ: kµÄ´óĞ¡¿ÉÄÜ´óÓÚÁ´±í³¤¶È
-
-·½·¨2: slow fastÖ¸Õë ÆäÖĞfast±ÈslowÏÈÔËĞĞk%lengthÎ»ÖÃ
-×îÖÕslow->nextÖ¸ÏòÇĞ¸îµã fast->nextÖ¸ÏòÍ·½áµã
+æ€è·¯1:
+slow fastæŒ‡é’ˆé—´éš”ä¸ºk%length,å¯»æ‰¾åˆ°åˆ†å‰²ç‚¹
+æ€è·¯2:
+åˆ†å‰²ç‚¹ä¸º length-k%lengthä½ç½®ï¼Œåˆ‡å‰²é“¾è¡¨é‡æ–°æ‹¼æ¥å³å¯
 */
-//ÖÕÓÚÒ»´ÎĞÔAC¹ıÁË
 
-#include<iostream>
-#include<algorithm>
-using std::cout;
-using std::endl;
+#include "func.h"
+ListNode* rotateRight(ListNode* head,int k){
+    if(head==NULL || head->next==NULL) return head;
+    ListNode* headtmp = head;
+    int len = 0;
+    while(headtmp!=NULL){
+        headtmp = headtmp->next;
+        len ++;
+    }
+    headtmp = head;
+    //å¯»æ‰¾åˆ‡å‰²ç‚¹çš„ preèŠ‚ç‚¹
+    k = len - k%len;
+    for(int i=0;i<k-1;i++)
+        headtmp = headtmp->next;
+    ListNode* newHead = headtmp->next;
+    headtmp->next = NULL;
+    //é‡æ–°æ‹¼æ¥
+    if(newHead==NULL) return head;      //ç›¸å½“äºk==len||k==0 ä¸æ—‹è½¬
+    ListNode* newHeadtmp = newHead;
+    while(newHeadtmp->next != NULL)
+        newHeadtmp = newHeadtmp->next;
+    newHeadtmp->next = head;
 
-struct ListNode{
-    int val;
-    ListNode* next;
-    ListNode():val(0),next(NULL){}
-    ListNode(int x):val(x),next(NULL){}
-};
-ListNode* rotateRight(ListNode* head, int k) {
-    if(head==NULL || head->next==NULL ) return head;
-    ListNode* pre = new ListNode(0);
-    ListNode* cur = head;
-    pre->next=head;
-    int length=0;
-    while(cur!=NULL){
-        length++;
-        cur = cur->next;
-    }
-    //×¢Òâµ±k%lengthÊ±ÊÇ²»ĞèÒª·´×ªµÄ
-    k=length - k%length;
-    if(k==length) return head;   //×¢Òâ´ËÊ±²»ĞèÒª·´×ªµÄ ·ñÔò»áÔì³É38ĞĞÖ¸ÕëÔ½½ç
-    while(k--){
-        pre=pre->next;
-    }
-    ListNode *temp=pre->next;
-    pre->next=NULL;
-    ListNode *fakenode=temp;
-   while(temp->next!=NULL)
-        temp=temp->next;
-   temp->next = head;
-   return fakenode;
+    return newHead;
 }
-int main(int argc,char** argv){
-    ListNode arr[5];
-    arr[0].val=1;
-    arr[0].next=&arr[1];
-    arr[1].val=2;
-    arr[1].next=&arr[2];
-    arr[2].val=3;
-    arr[2].next=&arr[3];
-    arr[3].val=4;
-    arr[3].next=&arr[4];
-    arr[4].val=5;
-    arr[4].next=NULL;
 
-    ListNode *result = rotateRight(arr,2);
-    while(result!=NULL){
-        cout<<result->val<<endl;
-        result = result->next;
+/*
+é‡æ–°æ‹¼æ¥çš„trick  å°†åŸæ¥é“¾è¡¨æ„å»ºæˆç¯ å†åˆ‡å‰²ç‚¹å‡ºåˆ†å‰²
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(!head) return head;
+        
+        int len=1; // number of nodes
+        ListNode *newH, *tail;
+        newH=tail=head;
+        
+        while(tail->next)  // get the number of nodes in the list
+        {
+            tail = tail->next;
+            len++;
+        }
+        tail->next = head; // circle the link
+
+        if(k %= len) 
+        {
+            for(auto i=0; i<len-k; i++) tail = tail->next; // the tail node is the (len-k)-th node (1st node is head)
+        }
+        newH = tail->next; 
+        tail->next = NULL;
+        return newH;
     }
-    return 0;
-}
+*/

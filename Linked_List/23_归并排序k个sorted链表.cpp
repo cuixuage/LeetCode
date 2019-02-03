@@ -1,54 +1,41 @@
 /*
-·½·¨1:±éÀúËùÓĞÁ´±í½«Æäval±£´æµ½Êı×éÖĞ,sortÊı×é,ÔÙÓÉval¹¹Ôì³öĞÂµÄÁ´±í
-·½·¨2£ºk¸öÁ´±íÖğ¸öÅÅĞò±È½Ï
-·½·¨3:Ã¿Á½ÌõÁ´±íºÏ²¢Ò»´Î
-·½·¨4:ÓÅÏÈ¶ÓÁĞ _ÓÅÏÈ¶ÓÁĞ×Ô¶¯ÅÅĞò£¿ ÖØĞ´compare·½·¨
+merge k sorted list
+æ€è·¯ï¼š 
+å¾ªç¯è°ƒç”¨merge 2 list funtion
 */
-#include<iostream>
-#include<vector>
-#include<limits>
-using std::cout;
-using std::endl;
-using std::vector;
+#include "func.h"
 
-class ListNode {
+class solution{
 public:
-    int val;
-    ListNode *next;
-public:
-    ListNode():val(0),next(NULL) {}
-    ListNode(int x)  :val(x),next(NULL) {}
-};
-//************************mergeÁ½ÌõsortedµÄÁ´±í
-ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    ListNode* prev=new ListNode(INT_MIN);
-    ListNode* temp=prev;
-    while(l1&&l2){
-        if(l1->val < l2->val){   //ÉıĞòÅÅÁĞ
-            temp->next=l1;
-            l1=l1->next;
+    ListNode* mergeKLists(vector<ListNode*>& lists){
+        if(lists.size()==0) return NULL;                //æ³¨æ„ æ­¤åˆ¤æ–­è¯­å¥
+        while(lists.size()>1){
+            ListNode* l1 = lists[0];
+            ListNode* l2 = lists[1];
+            ListNode* merge = merge2List(l1,l2);
+            lists.erase(lists.begin(),lists.begin()+2);  //åˆ é™¤[start,end)
+            lists.push_back(merge);
         }
-        else{
-            temp->next=l2;
-            l2=l2->next;
+        return lists[0];
+    }
+private:
+    ListNode* merge2List(ListNode* l1,ListNode* l2){
+        ListNode* pre = new ListNode(0);
+        ListNode* pretmp = pre;
+        while(l1!=NULL && l2!=NULL){
+            if(l1->val <= l2->val){
+                pre->next = l1;
+                l1 = l1->next;
+            }else{
+                pre->next = l2;
+                l2 = l2->next;
+            }
+            pre = pre->next;
         }
-        temp=temp->next;
+        if(l1 == NULL) pre->next = l2;
+        else pre->next = l1;
+        ListNode* ans = pretmp->next;
+        delete pretmp;
+        return ans;
     }
-    temp->next=l1?l1:l2;  //ÓÅÑÅ l1»òÕßl2²»µÈ³¤Ê± ´ËÊ±±ØÓĞÒ»¸öÎª¿Õ
-    return prev->next;
-}
-//************************merge ¶àÌõsortedµÄÁ´±í
-ListNode* mergeKLists(vector<ListNode*> &lists){ //Ê¹ÓÃÒıÓÃ ÌØ±ğÊÇ³öÏÖÈİÆ÷µü´úÆ÷Ê±ºò
-    if(lists.empty()) return NULL;
-    while(lists.size()>1){
-        lists.push_back(mergeTwoLists(lists[0],lists[1]));
-        lists.erase(lists.begin());
-        lists.erase(lists.begin());
-    }
-    //return lists.front();
-    return lists[0];
-}
-
-int main(int argc,char** argv){
-
 }
