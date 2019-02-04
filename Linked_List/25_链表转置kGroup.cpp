@@ -40,7 +40,7 @@ private:
     }
     ListNode* reverseList(ListNode* begin, ListNode* end){
         //结束调用后 原参数begin end的地址不会改变
-        if(begin == last) return begin;
+        if(begin == end) return begin;
         ListNode* pre = NULL;
         ListNode* tmp = NULL;
         while(begin != end){
