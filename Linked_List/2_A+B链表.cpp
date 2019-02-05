@@ -1,110 +1,69 @@
-/* Êı×Ö·´Ïò´æ´¢ ×¢Òâ½øÎ»ÎÊÌâ
-Á´±í²»´æÔÚÇ°µ¼Áã
-Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
-Output: 7 -> 0 -> 8
-¸Ğ¾õºÍ21Ìâ 23Ìâ merge sortedÁ´±íÓĞĞ©ÏàËÆ
+/*
+ä¸¤ä¸ªé“¾è¡¨ç›¸åŠ 
 */
-
-//Ò»´ÎÍ¨¹ı  accepted
-#include<iostream>
-using std::cout;
-using std::endl;
-class ListNode {
-public:
-    int val;
-    ListNode *next;
-public:
-    ListNode()    :val(0),next(NULL) {}
-    ListNode(int x)    :val(x),next(NULL) {}
-};
-//*****************************¸ü¼ÓÓÅÑÅµÄ´úÂëÈçÏÂ
-ListNode *addTwoNumbers_elegant(ListNode *l1, ListNode *l2) {
-    ListNode preHead(0), *p = &preHead;
-    int extra = 0;
-    //Á´±íÖĞÖµÎª·Ç¸ºÊı  ËùÒÔval²»´æÔÚÊ±¿ÉÉèÖÃÎª0
-    while (l1 || l2 || extra) {
-        int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + extra;
-        extra = sum / 10;              //»ñÈ¡½øÎ»ÊıÖµ
-        p->next = new ListNode(sum % 10);
-        p = p->next;
-        l1 = l1 ? l1->next : l1;      //Îª¿ÕÔò²»¸Ä±ä
-        l2 = l2 ? l2->next : l2;
-    }
-    return preHead.next;
-}
-//************************************************************
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    int carry=0;
-    ListNode* prev = new ListNode(0);
-    ListNode* dummy = prev;
+#include "func.h"
+ListNode* addTwoNumbers(ListNode* l1,ListNode* l2){
+    int carray = 0;
+    ListNode* pre = new ListNode(0);
+    ListNode* pretmp = pre;
     while(l1&&l2){
-        int sum=l1->val+l2->val+carry;
-        if(sum>=10) carry=1;
-        else carry=0;
-        ListNode* temp=new ListNode(sum%10);
-        prev->next = temp;
-        prev = prev->next;
-        l1=l1->next;
-        l2=l2->next;
+        int sum = l1->val+l2->val+carray;
+        ListNode* tmp = new ListNode(sum%10);
+        carray = sum/10;
+        pre->next = tmp;
+        pre = pre->next;
+        l1 = l1->next;
+        l2 = l2->next;
     }
-
     if(l1==NULL){
         while(l2!=NULL){
-            int sum=l2->val + carry;
-            if(sum>=10) carry=1;
-            else carry=0;
+            int sum=l2->val + carray;
+            if(sum>=10) carray=1;
+            else carray=0;
             ListNode* temp=new ListNode(sum%10);
-            prev->next = temp;
-            prev = prev->next;
+            pre->next = temp;
+            pre = pre->next;
             l2=l2->next;
         }
-        //Èç¹û×îºól1 l2¾ùÎªNULLºóÈÔ½øÎ»1 ÈÔĞèĞÂ½¨½áµã
-        if(carry==1) {
+        //å¦‚æœæœ€ål1 l2å‡ä¸ºNULLåä»è¿›ä½1 ä»éœ€æ–°å»ºç»“ç‚¹
+        if(carray==1) {
             ListNode* temp=new ListNode(1);
-            prev->next = temp;
-            prev = prev->next;
+            pre->next = temp;
+            pre = pre->next;
         }
     }
     else if(l2==NULL){
         while(l1!=NULL){
-            int sum=l1->val + carry;
-            if(sum>=10) carry=1;
-            else carry=0;
+            int sum=l1->val + carray;
+            if(sum>=10) carray=1;
+            else carray=0;
             ListNode* temp=new ListNode(sum%10);
-            prev->next = temp;
-            prev = prev->next;
+            pre->next = temp;
+            pre = pre->next;
             l1=l1->next;
         }
-        if(carry==1) {
+        //å¦‚æœæœ€ål1 l2å‡ä¸ºNULLåä»è¿›ä½1 ä»éœ€æ–°å»ºç»“ç‚¹
+        if(carray==1) {
             ListNode* temp=new ListNode(1);
-            prev->next = temp;
-            prev = prev->next;
+            pre->next = temp;
+            pre = pre->next;
         }
     }
-    return dummy->next;
+    return pretmp->next;
 }
-//***********************************²âÊÔ11118+222229  ½øÎ»
-int main(int argc,char** argv){
-    ListNode arr1[5];
-    for(int i=0;i<4;i++){
-        arr1[i].val = 1;
-        arr1[i].next = &arr1[i+1];
-    }
-    arr1[4].val=8;
-    arr1[4].next=NULL;
-    ListNode arr2[6];
-    for(int i=0;i<5;i++){
-        arr2[i].val = 2;
-        arr2[i].next = &arr2[i+1];
-    }
-    arr2[5].val=9;
-    arr2[5].next=NULL;
 
-    //ListNode* res=addTwoNumbers(&arr1[0],&arr2[0]);
-    ListNode* res=addTwoNumbers_elegant(&arr1[0],&arr2[0]);
-    while(res!=NULL){
-        cout<<res->val<<endl;
-        res = res->next;
+//*****************************æ›´åŠ ä¼˜é›…çš„ä»£ç å¦‚ä¸‹
+ListNode *addTwoNumbers_elegant(ListNode *l1, ListNode *l2) {
+    ListNode preHead(0), *p = &preHead;
+    int extra = 0;
+    //é“¾è¡¨ä¸­å€¼ä¸ºéè´Ÿæ•°  æ‰€ä»¥valä¸å­˜åœ¨æ—¶å¯è®¾ç½®ä¸º0
+    while (l1 || l2 || extra) {
+        int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + extra;
+        extra = sum / 10;              //è·å–è¿›ä½æ•°å€¼
+        p->next = new ListNode(sum % 10);
+        p = p->next;
+        l1 = l1 ? l1->next : l1;      //ä¸ºç©ºåˆ™ä¸æ”¹å˜
+        l2 = l2 ? l2->next : l2;
     }
-    return 0;
+    return preHead.next;
 }
