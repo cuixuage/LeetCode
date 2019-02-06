@@ -1,42 +1,50 @@
-//ÒÑÅÅĞòÁ´±íÖĞÉ¾³ıÖØ¸´½áµã
-//leetcode 83Ìâ
-ListNode* deleteDuplicates(ListNode* head)
-{
-    if(head==NULL) return head;
-    ListNode* pre = head;               //headÖ¸Ïò²»±ä
-    ListNode* cur = head->next;         //¹Ø¼ü
-    while(cur!=NULL)
-    {
-        if(pre->val == cur->val)
-            pre->next = cur->next;
-        else
-            pre = cur;
-        cur = cur->next;
+/*
+å‡ºç°é‡å¤çš„å…ƒç´ å…¨éƒ¨è¢«åˆ é™¤
+*/
+
+#include "func.h"
+ 
+//æ–¹å¼1 
+ListNode* deleteDuplicates(ListNode* head){
+    if(head==NULL || head->next==NULL) return head;
+    ListNode* pre = new ListNode(0);
+    pre->next = head;
+    ListNode* tmp = pre;
+    head = head->next;
+    while(head!=NULL){
+        if(pre->next->val == head->val) head = head->next;
+        else if(pre->next->next != head){
+            pre->next = head;
+            head = head->next;
+        }else{
+            pre = pre->next;
+            head = head->next;
+        }
     }
-    return head;
+    //e.g. {1,1,1}é“¾è¡¨éœ€è¦è¿”å›NULL
+    if(pre->next!=NULL && pre->next->next!=head) pre->next = NULL;
+    return tmp->next;
 }
 
-//ÍÆ¹ã ½«ÖØ¸´µÄÔªËØÈ«²¿É¾³ı leetcode82  Given 1->1->1->2->3, return 2->3.
-ListNode* deleteDuplicates(ListNode* head)
-{
+//æ–¹å¼2   æ›´æ¨è
+ListNode* deleteDuplicates(ListNode* head){
     if(head==NULL || head->next==NULL) return head;
-
-    ListNode *pre = new ListNode(0);
+    ListNode* pre = new ListNode(0);
+    ListNode* pretmp = pre;
     pre->next = head;
-    ListNode *temp=pre;
-    while(head!=NULL)
-    {
-        //ÕÒµ½ÖØ¸´ÔªËØµÄ×îºóÒ»¸ö
-        while(head->next!=NULL && head->val == head->next->val)
+    head = head->next;
+    while(head!=NULL){
+        while(head!=NULL && pre->next->val == head->val) //1.
             head = head->next;
+        if(head==NULL){ pre->next = NULL; break; }
 
-        //¸üĞÂpreÎ»ÖÃ¡ª¡ªÍ£ÁôÔÚÖØ¸´ÔªËØµÄpreÎ»ÖÃ(Ã»ÓĞÖØ¸´ÔªËØ)
-        if(pre->next==head) pre = pre->next;
-        //Ö¸ÏòÖØ¸´ÔªËØµÄnextÎ»ÖÃ
-        else pre->next=head->next;
-
+        if(pre->next->next == head)//2.1
+            pre = pre->next;
+        else   //2.2
+            pre->next = head;
         head = head->next;
     }
-    return temp->next;
-
+    ListNode* ans = pretmp->next;
+    delete pretmp;
+    return ans;
 }
