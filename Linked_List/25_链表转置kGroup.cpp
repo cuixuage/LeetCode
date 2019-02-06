@@ -74,7 +74,11 @@ public:
 };
 
 void func(ListNode* p){
-    //p->val = 1000;
+    p = p->next;
+    cout<<p->val<<endl;
+}
+
+void func2(ListNode*& p){       //指针变量的引用 可以成功修改
     p = p->next;
     cout<<p->val<<endl;
 }
