@@ -23,3 +23,5 @@ ListNode* deleteDuplicates(ListNode* head){
     delete ans;
     return res; 
 } 
+
+//其实哨兵节点可以从head开始的
