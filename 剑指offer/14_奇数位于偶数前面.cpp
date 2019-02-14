@@ -1,30 +1,22 @@
-//quicksortµÄ±äĞÍ
+/*
+å¿«é€Ÿæ’åºçš„å˜å‹é—®é¢˜
+trickï¼š
+å˜é‡ & 0x1 ç­‰äºé›¶,å˜é‡æ˜¯å¶æ•°
+*/
 #include "func.h"
-void reorderArray(int *pdata,unsigned int length){
-    if(pdata==NULL || length==0) return;
-    int *pbegin = pdata;
-    int *pend = pdata+length-1;
-    while(pbegin<pend){                 //±È½ÏµØÖ·µÄ´óĞ¡
-        while(pbegin<pend && (*pbegin & 1)!=0)   ++pbegin;
-        while(pbegin<pend && (*pend & 1)==0) --pend;
-        if(pbegin<pend) std::swap(*pbegin,*pend);
-    }
-}
 
-int main(int argc,char** argv){
-    int *A = new int[10];
-    for(int i=0;i<10;i++)
-        A[i]=i+1;
-//    //²âÊÔÕ»µÄÉú³¤·½Ïò,¿ÉÄÜÊı×é¾ÍÊÇÕâÖÖÇé¿ö°É¡£
-//    //Ò»°ãÀ´Ëµ Õ»ÊÇÏòµØÖ·¼õÉÙ·½ÏòÔö³¤
-//    for(int k=0;k<10;k++){
-//        printf("%x %d\n",A,*A);
-//        A++;
-//    }
-    reorderArray(A,10);
-    for(int k=0;k<10;k++){
-        printf("%x %d\n",A,*A);
-        A++;
+void reorderArray(vector<int>& array){
+    if(array.size()==0) return;
+    int low = 0;
+    int high = array.size()-1;
+    while(low<high){
+        while(low<high && (array[low]&0x1)!=0) ++low;
+        while(low<high && (array[high]&0x1)==0) --high;
+        if(low<high){
+            int tmp = array[low];
+            array[low] = array[high];
+            array[high] = tmp;
+        }
     }
-    return 0;
+    return;
 }
