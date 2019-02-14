@@ -1,7 +1,7 @@
 #include "func.h"
 
-//¿ìËÙÅÅĞò
-//Á½ÖÖ·½·¨  ×¢ÊÍµÄ·½·¨¸üÉÙµÄ½»»»´ÎÊı
+//å¿«é€Ÿæ’åº
+//ä¸¤ç§æ–¹æ³•  æ³¨é‡Šçš„æ–¹æ³•æ›´å°‘çš„äº¤æ¢æ¬¡æ•°
 int Partition(int A[],int low,int high){
 	int pivot=A[low];
 	while(low<high){
@@ -11,21 +11,21 @@ int Partition(int A[],int low,int high){
 //		A[high]=A[low];
         std::swap(A[high],A[low]);
 	}
-//	if(A[low] <= pivot) return low;             //Èç¹ûÉÏÃæ ÄÚ²¿Á½¸öwhileË³Ğò¼ÓÒÔ½»»» ÄÇÃ´ÕâÀïĞèÒªÅĞ¶Ï
+//	if(A[low] <= pivot) return low;             //å¦‚æœä¸Šé¢ å†…éƒ¨ä¸¤ä¸ªwhileé¡ºåºåŠ ä»¥äº¤æ¢ é‚£ä¹ˆè¿™é‡Œéœ€è¦åˆ¤æ–­
 //	else return low-1;
     return low;
 }
 void quicksort(int A[],int low,int high){
 	if(low<high){
 		int pivotpos=Partition(A,low,high);
-        std::swap(A[low],A[pivotpos]);              //È·¶¨Ò»¸öÔªËØµÄ×îÖÕÎ»ÖÃ
+        std::swap(A[low],A[pivotpos]);              //ç¡®å®šä¸€ä¸ªå…ƒç´ çš„æœ€ç»ˆä½ç½®
 
 		quicksort(A,low,pivotpos-1);
 		quicksort(A,pivotpos+1,high);
 	}
 }
 
-//¶ÔÓÚËã·¨µÄ×Ô²â
+//å¯¹äºç®—æ³•çš„è‡ªæµ‹
 #define SIZE 100
 #define TEST_TIMES 1000000
 
