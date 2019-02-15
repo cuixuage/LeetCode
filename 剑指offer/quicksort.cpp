@@ -56,3 +56,12 @@ int main()
     }
     return 0;
 }
+
+/*
+partion中while语句的交换原因:
+
+如果low在high之前,则low==high的位置满足:
+A[low]=A[high]>=A[0]
+而A[0]是中枢元素值,紧接着A[low]=A[high]交换到index=0位置
+使得不满足 low=high左侧元素小于等于的条件
+*/
