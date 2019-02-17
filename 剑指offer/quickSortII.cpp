@@ -35,3 +35,35 @@ void quicksort(vector<int>& A, int low, int high){
 3.存在大量重复元素时 每次递归将和中枢元素相等的全部元素排列到[lt,gt]之间
 得到 nums[lo..lt-1] < v=nums[lt..gt] < nums[gt+1...hi]
 */
+
+#define SIZE 100
+#define TEST_TIMES 1000000
+
+int main()
+{
+    srand((unsigned)time(NULL));
+    vector<int> A(SIZE,0);
+    for (int times = 0; times < TEST_TIMES; ++ times)
+    {
+        for (int i = 0; i < SIZE; ++i)
+        {
+            A[i] = rand() % SIZE;
+        }
+        quicksort(A,0,SIZE-1);
+        for (int i = 0; i < SIZE-1; ++i)
+        {
+            if (A[i] > A[i+1])
+            {
+                cout << "algorithm failed" << endl;
+                for (int j = 0; j < SIZE-1; ++j)
+                {
+                    cout << A[j] << ",";
+                }
+                cout << A[SIZE-1] << endl;
+                return 1;
+            }
+        }
+    }
+    cout<<"sucess"<<endl;
+    return 0;
+}
