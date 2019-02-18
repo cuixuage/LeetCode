@@ -1,6 +1,27 @@
-//leetcode 160 Ñ°ÕÒÁ´±íµÄ½»¼¯
+/*
+æ€è·¯:
+A,Bä¸¤æ¡é“¾è¡¨å·®å€¼æ˜¯diff,fasté“¾è¡¨å…ˆèµ°diff ç›´åˆ°slowå’Œfastç›¸é‡
+*/
 
-//·½·¨1: Á´±í³¤µÄÏÈÒÆ¶¯Ò»¶¨²½Êı
+#include "func.h"
+ListNode* getIntersectionNode(ListNode* A, ListNode* B){
+    ListNode* p1 = A;
+    ListNode* p2 = B;
+    if(p1==NULL || p2==NULL) return NULL;
+    while(p1!=p2){
+        p1 = p1->next;
+        p2 = p2->next;
+        if(p1==p2) return p1;
+        //1.
+        if(p1==NULL) p1 = B;
+        if(p2==NULL) p2 = A;
+    }
+    //2.
+    return p1;
+}
+//note: 2.å¯èƒ½A,Bæ²¡æœ‰å…¬å…±èŠ‚ç‚¹ æ­¤æ—¶p1==p2==NULL
+
+//æ–¹æ³•2: é“¾è¡¨é•¿çš„å…ˆç§»åŠ¨ä¸€å®šæ­¥æ•°
 int getLength(ListNode* head){
     int len = 0;
     ListNode* tmp = head;
@@ -20,7 +41,7 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB){
         longhead = headB;
         shorthead = headA;
     }
-    while(diff--){          //³¤Á´±íÏÈÒÆ¶¯diff²½
+    while(diff--){          //é•¿é“¾è¡¨å…ˆç§»åŠ¨diffæ­¥
         longhead = longhead->next;
     }
 
@@ -30,19 +51,3 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB){
     }
     return longhead;
 }
-
-//·½·¨2
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *p1 =headA;
-        ListNode *p2 =headB;
-
-        if(p1==NULL || p2==NULL) return NULL;
-        while(p1!=NULL && p2!=NULL &p1!=p2){
-            p1=p1->next;
-            p2=p2->next;
-            if(p1==p2) return p1;
-            if(p1==NULL) p1=headB;              //¸Ä³ÉÁíÍâÒ»ÌõÁ´±íµÄÍ·²¿
-            if(p2==NULL) p2=headA;
-        }
-        return p2;
-    }
