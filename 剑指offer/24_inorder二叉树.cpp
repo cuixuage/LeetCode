@@ -31,11 +31,11 @@ vector<int> inorderTraversal(TreeNode* root){
     return ans;
 }
 
-//思路2  再理解  这里我没进行思考
+//思路2  仔细理解
 vector<int> inorderTraversal(TreeNode* root) {
     stack<TreeNode*> rootStack;
     vector<int> inorder;
-    TreeNode* p = root;
+    TreeNode* p = root;         //init
     while(!rootStack.empty() || p!=nullptr){
         if(p!=nullptr){
             rootStack.push(p);
@@ -47,6 +47,25 @@ vector<int> inorderTraversal(TreeNode* root) {
             inorder.push_back(node->val);  //在所有left结点加入stack后
             p = node->right;
         }
+    }
+    return inorder;
+}
+
+//类似思路2  仔细理解  中序遍历
+vector<int> inorderTraversal(TreeNode* root){
+    vector<int> inorder;
+    stack<TreeNode*> s;
+    if(root == NULL) return inorder;
+    TreeNode* pre = root;          //初始化的注意点
+    while(pre!=NULL || !s.empty()){
+        while(pre!=NULL){
+            s.push(pre);
+            pre = pre->left;
+        }
+        TreeNode* top = s.top();
+        s.pop();
+        inorder.push_back(top->val);
+        pre = top->right;               //理解top节点的含义
     }
     return inorder;
 }

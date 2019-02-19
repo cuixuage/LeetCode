@@ -9,6 +9,7 @@
 //递归写法  Accept
 //注:  每次递归调用的返回值会 覆盖上次递归返回值
 //只有当没有任何false 覆盖  才会返回正确值
+{
 public:
     bool isValidBST(TreeNode* root){
         //只有当没有任何false 覆盖  才会返回正确值
@@ -22,12 +23,14 @@ public:
     }
 private:
     TreeNode* pre=NULL;  //尽量不要依赖INT_MIN INT_MAX
+}
+
 
 //stack 写法  Accept
 bool isValidBST(TreeNode* root){
     if(root == NULL) return true;
     stack<TreeNode*> myStack;
-    TreeNode* pre = NULL;
+    TreeNode* pre = NULL;               //初始化为NULL  对比94题目
     while(root!=NULL || !myStack.empty()){
         while(root!=NULL){
             myStack.push(root);
@@ -40,13 +43,12 @@ bool isValidBST(TreeNode* root){
         pre = root;
         root = root->right;
     }
-    
-    // inorder遍历完所有元素
     return true;
 }
     
     
 //ERROR  只考虑了当前的父节点做比较
+//e.g. 左侧子树的最大值 要小于 右侧子树的最小值 (没有判断的体现)
 bool isValidBST(TreeNode* root){
     if(root == NULL) return true;
     if(root->left != NULL && root->left->val >= root->val)
