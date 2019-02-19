@@ -1,23 +1,63 @@
 
-/*144Ìâpreorder 145Ìâpostorder 103Ìâ°´²ãÊä³ö*/
+/*144ï¿½ï¿½preorder 145ï¿½ï¿½postorder 103ï¿½â°´ï¿½ï¿½ï¿½ï¿½ï¿½*/
 vector<int> inorderTraversal(TreeNode* root)
 {
     vector<int> result;
-    stack<TreeNode*> myStack;    //´ı±éÀúµÄ½áµã
+    stack<TreeNode*> myStack;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
     myStack.push(root);
-    if(root==NULL) return result;           //±ÜÃâºóÃænode²»´æÔÚleft½áµã¶øÔ½½ç
+    if(root==NULL) return result;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nodeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½leftï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½
     while(!myStack.empty())
     {
-        TreeNode* node = myStack.top();     //´Ë½ÚµãÔİÊ±´Ómystack²»ÄÜÉ¾³ı Çø±ğpreorder
+        TreeNode* node = myStack.top();     //ï¿½Ë½Úµï¿½ï¿½ï¿½Ê±ï¿½ï¿½mystackï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½preorder
         if(node->left!=NULL)
         {
             myStack.push(node->left);
             node->left=NULL;
-        }else{                      //node²»´æÔÚ×ó×ÓÊ÷ ¼ÓÈëroot->val
+        }else{                      //nodeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½root->val
             result.push_back(node->val);
-            myStack.pop();          //´Ó´ı±éÀú½áµã¼¯ºÏÖĞÉ¾³ı´Ë½Úµã
+            myStack.pop();          //ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¼¯ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Ë½Úµï¿½
             if(node->right) myStack.push(node->right);
         }
     }
     return result;
+}
+
+
+//æ€è·¯2  ä»”ç»†ç†è§£
+vector<int> inorderTraversal(TreeNode* root) {
+    stack<TreeNode*> rootStack;
+    vector<int> inorder;
+    TreeNode* p = root;         //init
+    while(!rootStack.empty() || p!=nullptr){
+        if(p!=nullptr){
+            rootStack.push(p);
+            p=p->left;
+        }
+        else{
+            TreeNode* node = rootStack.top();
+            rootStack.pop();
+            inorder.push_back(node->val);  //åœ¨æ‰€æœ‰leftç»“ç‚¹åŠ å…¥stackå
+            p = node->right;
+        }
+    }
+    return inorder;
+}
+
+//ç±»ä¼¼æ€è·¯2  ä»”ç»†ç†è§£  ä¸­åºéå†
+vector<int> inorderTraversal(TreeNode* root){
+    vector<int> inorder;
+    stack<TreeNode*> s;
+    if(root == NULL) return inorder;
+    TreeNode* pre = root;          //åˆå§‹åŒ–çš„æ³¨æ„ç‚¹
+    while(pre!=NULL || !s.empty()){
+        while(pre!=NULL){
+            s.push(pre);
+            pre = pre->left;
+        }
+        TreeNode* top = s.top();
+        s.pop();
+        inorder.push_back(top->val);
+        pre = top->right;               //ç†è§£topèŠ‚ç‚¹çš„å«ä¹‰
+    }
+    return inorder;
 }
