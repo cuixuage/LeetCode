@@ -1,109 +1,132 @@
-//leetcode 206
-ListNode* reverseList(ListNode* head){
-    if(head == NULL) return NULL;
-    ListNode* prev = NULL;            //Ö¸ÏòÉÏÒ»¸ö½Úµã
-    ListNode* next = NULL;            //Ö¸ÏòÏÂÒ»¸ö½áµã
-    while(head!=NULL){                          //±éÀúËùÓĞ½Úµã
-        next = head->next;
-        head->next = prev;
-        prev = head;                            //¹Ø¼ü:Á½¸ö¸üĞÂ²½Öè
-        head = next;
-    }
-    return prev;
-}
-
-#include"func.h"
- struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(NULL) {}              //ÎŞ²ÎÊıµÄ¹¹Ôìº¯Êı
-    ListNode(int x) : val(x), next(NULL) {}
- };
-
-/*
-ÍÆ¹ã leetcode92  ×ªÖÃĞòºÅ[n,m]Ö®¼äµÄÁ´±í
-Ë¼Â·:  [m,n]Ö®¼äÁ´±í×ªÖÃ
-×¢Òâ: 1.±£´æ³õÊ¼m µÄprev½áµã
-      2.±£´æm½áµã  (×îºóĞèÒªm½áµãÖ¸ÏòÔ­À´n½áµãµÄnext½áµã)
-      3.×îÖÕ 1²½ÖèµÄ½áµãµÄnextÖ¸Ïò [m,n]×ªÖÃÁ´±íµÄÍ·½áµã
-*/
-ListNode* reverseBetween(ListNode* head, int m, int n) {
-        //cout<<head->val;
-        if(head == NULL ) return head;
-        ListNode* ahead = new ListNode(0);
-        ahead->next = head;
-        ListNode* ahead2 = ahead;       //¹Ø¼ü ÉÚ±ø½áµãµÄË¼Ïë(±£Ö¤nextÖ¸ÏòÔ­ÓĞÕû¸öÁ´±íµÄËùÓĞÔªËØ)
-
-        for(int i=0;i<m-1;i++)
-            ahead = ahead->next;
-        ListNode* mNode = ahead->next;
-        ListNode* tail = ahead;         //³õÊ¼m½áµãµÄprev½áµã
-
-        ListNode* prev = NULL;
-        ListNode* next = NULL;
-        ahead = ahead->next;
-        for(int i=m;i<=n;i++){
-            next = ahead->next;
-            ahead->next = prev;
-            prev = ahead;
-            ahead = next;
-        }
-        mNode->next = ahead;        //m½áµã
-        tail->next = prev;
-//        cout<<ahead2->next->val;
-        return ahead2->next;
-    }
-/*
-int  main(){
-    ListNode mynode[5];         //×¢Òâ: ListNode¼ÓÉÏÎŞ²ÎÊıµÄ¹¹Ôìº¯Êı
-    for(int i=0;i<4;i++){
-        mynode[i].val = i+1;
-        mynode[i].next = &mynode[i+1];
-    }
-    mynode[4].val = 5;
-    mynode[4].next = NULL;
-
-    ListNode* head = reverseBetween(mynode,1,2);
-    while(head!=NULL){
-        cout<<head->val<<" "<<endl;
-        head = head->next;
-    }
-    return 0;
-}
-*/
-
-//ÍÆ¹ã3. Ã¿k¸öÔªËØ×÷Îªgroup·´×ªÒ»´Î
-
-ListNode* reverseList(ListNode* first,ListNode* last) {
-    ListNode* pre=last;   //ÖØµã¡ª¡ªlast½áµãÊÇĞèÒª×ªÖÃµÄÁ´±íÔªËØµÄnextÎ»ÖÃ
-    ListNode* temp=new ListNode(0);
-    while(first!=last){
-        temp = first->next;
-        first->next = pre;
-        pre = first;
-        first = temp;
-    }
-    return pre; //lastµÄpre½áµã
-}
-ListNode* reverseList(ListNode* head) {
-    ListNode* pre=NULL;
-    ListNode* next=NULL;
-    while(head!=NULL){
-        next=head->next;
-        head->next=pre;
-        pre=head;
-        head=next;
+#include "func.h"
+//ä¸€æ¬¡AC
+ListNode* reverse(ListNode* head){
+    if(head==NULL) return NULL;
+    ListNode* pre = NULL;
+    while(head){
+        ListNode* tmp = head->next;
+        head->next = pre;
+        pre = head;
+        head = tmp;
     }
     return pre;
 }
-ListNode* reverseKGroup(ListNode* head, int k) {
-    ListNode* node=head;
-    for (int i=0; i < k; ++i){
-            if (node ==NULL) return head;  //µİ¹éµ÷ÓÃ³ö¿Ú
-            node = node->next;
+
+/*
+è½¬ç½®[m,n]ä¹‹é—´çš„é“¾è¡¨,é¦–èŠ‚ç‚¹çš„åºå·æ˜¯1
+æ€è·¯1:
+å•ç‹¬å–å‡º[m,n]ä¹‹é—´é“¾è¡¨,å¯¹å…¶è½¬ç½®,å†åŠ å…¥åŸé“¾è¡¨
+æ€è·¯2:
+1.one-pass å“¨å…µèŠ‚ç‚¹ä¸ºm-1ç‚¹
+2.å°†m,nçš„èŠ‚ç‚¹æŒ‰é¡ºåºåŠ å…¥å“¨å…µèŠ‚ç‚¹åä¾§å³ä¸ºè½¬ç½®
+*/
+ListNode* reverseBetween(ListNode* head,int m,int n){
+    if(head==NULL) return NULL;
+    //1. å“¨å…µèŠ‚ç‚¹
+    ListNode* pre = new ListNode(0);       
+    ListNode* pre_2 = pre;
+    pre->next = head;
+    for(int i=0;i<m-1;i++) pre = pre->next;
+    /*
+    2. startæ˜¯åºå·mçš„èŠ‚ç‚¹ ä¸æ–­å°†thenåŠ å…¥preåä¾§
+    å¯¹äºæ¯ä¸€è½®æ¥è¯´,thenæ’å…¥preï¼Œpre->nextä¹‹é—´
+    thençš„å‰ç½®èŠ‚ç‚¹æ˜¯å“¨å…µèŠ‚ç‚¹, then->nextæŒ‡å‘èŠ‚ç‚¹æ˜¯pre->nextèŠ‚ç‚¹
+    */
+    ListNode* start = pre->next;
+    ListNode* then = start->next;  
+    for(int i=m;i<n;i++){
+        start->next = then->next;
+        then->next = pre->next;
+        pre->next = then;
+        then = start->next; 
     }
-    //node ÊÇµÚk+1¸öÔªËØ
-    ListNode* new_head = reverseList(head, node);
-    head->next = reverseKGroup( node, k);   //µİ¹é£»£»×ªÖÃºóµÄÄÇÒ»Ğ¡¶ÎÁ´±íheadÎªÎ²½Úµã
-    return new_head;
+    ListNode* ans = pre_2->next;
+    delete pre_2;
+    return ans;
 }
+
+/*
+é—´éš”kä¸ªå…ƒç´ çš„è½¬ç½®
+Given this linked list: 1->2->3->4->5
+For k = 2, you should return: 2->1->4->3->5
+For k = 3, you should return: 3->2->1->4->5
+æ€è·¯:
+1.é—´éš”kä¸ªå…ƒç´ æ‰¾åˆ°èŠ‚ç‚¹end
+2.è½¬ç½®[start,end)èŠ‚ç‚¹
+3.æ‹¼æ¥å‰©ä½™çš„[endï¼Œ...] é€’å½’è°ƒç”¨
+*/
+
+#include "func.h"
+class Solution{
+public:
+    ListNode* reverseKGroup(ListNode* head, int k){
+        ListNode* end = head;
+        //1.note: endèŠ‚ç‚¹ä½ç½®
+        for(int i=0;i<k;i++){
+            if(end==NULL) return head;
+            end = end->next;
+        }
+        //2.
+        ListNode* newHead = reverseList(head,end);
+        //headè¢«ç§»åŠ¨åˆ°æœ«å°¾ + é€’å½’
+        head->next = reverseKGroup(end,k);
+        return newHead;
+    }
+private:
+    ListNode* reverseList(ListNode* head){
+        //ç»“æŸè°ƒç”¨å åŸheadæŒ‡é’ˆ
+        ListNode* pre = NULL;
+        while(head!=NULL){
+            ListNode* tmp = head->next;
+            head->next = pre;
+            pre = head;
+            head = tmp;
+        }
+        return pre;
+    }
+    ListNode* reverseList(ListNode* begin, ListNode* end){
+        //ç»“æŸè°ƒç”¨å å½¢å‚begin endçš„åœ°å€ä¸ä¼šæ”¹å˜
+        //ä½†æ˜¯å…¶å†…éƒ¨å±æ€§ ->nextæŒ‡å‘å‘ç”Ÿäº†æ”¹å˜,beginç›¸å½“äºä½äºé“¾è¡¨çš„ç»“å°¾å¤„ 
+        if(begin == end) return begin;
+        ListNode* pre = NULL;
+        ListNode* tmp = NULL;
+        while(begin != end){
+            tmp = begin->next;
+            begin->next = pre;
+            pre = begin;
+            begin = tmp;
+        }
+        return pre;
+    }
+}
+
+//*************************2åˆ· AC
+
+/*
+1. é—´éš”Kç¿»è½¬ 
+2.ç¿»è½¬ [head,end)é—´éš”;   è½¬ç½®åheadå¤„äºæœ¬é—´éš”çš„å°¾èŠ‚ç‚¹
+3.é€’å½’ end,k.  endæ—¶ååŠéƒ¨åˆ†é“¾è¡¨çš„å¤´ç»“ç‚¹
+*/
+ ListNode* reverseKGroup(ListNode* head, int k) {
+     if(head==NULL || k==0) return head;
+     ListNode* end = head;
+     for(int i=0;i<k;i++){
+         if(end==NULL) return head; //1.
+         end = end->next; 
+     }
+     ListNode* newHead = reverse(head,end); //2.
+     head->next = reverseKGroup(end,k);      //3.
+    return newHead;     //4. returnèŠ‚ç‚¹
+ }
+
+// ->S...->E->...é—´éš”é“¾è¡¨çš„è½¬ç½®
+ ListNode* reverse(ListNode* s, ListNode* e){
+     ListNode* pre = NULL;
+     while(s!=e){
+         ListNode* tmp = s->next;
+         s->next = pre;
+         pre = s;
+         s = tmp;
+     }
+     return pre;        //ç›¸å½“äºreturn åˆå§‹çš„å½¢å‚sèŠ‚ç‚¹,s->next=NULLè€Œå·²
+ }
