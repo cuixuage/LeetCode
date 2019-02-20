@@ -8,50 +8,31 @@ For k = 3, you should return: 3->2->1->4->5
 2.转置[start,end)节点
 3.拼接剩余的[end，...] 递归调用
 */
-
 #include "func.h"
-class Solution{
-public:
-    ListNode* reverseKGroup(ListNode* head, int k){
-        ListNode* end = head;
-        //1.
-        for(int i=0;i<k;i++){
-            if(end==NULL) return head;
-            end = end->next;
-        }
-        //2.
-        ListNode* newHead = reverseList(head,end);
-        //FIXME： 这里head并没有在reverseList中发生变化
-        //指针和引用的区别
-        head->next = reverseKGroup(end,k);
-        return newHead;
-    }
-private:
-    ListNode* reverseList(ListNode* head){
-        //结束调用后 原head指针
-        ListNode* pre = NULL;
-        while(head!=NULL){
-            ListNode* tmp = head->next;
-            head->next = pre;
-            pre = head;
-            head = tmp;
-        }
-        return pre;
-    }
-    ListNode* reverseList(ListNode* begin, ListNode* end){
-        //结束调用后 原参数begin end的地址不会改变
-        if(begin == end) return begin;
-        ListNode* pre = NULL;
-        ListNode* tmp = NULL;
-        while(begin != end){
-            tmp = begin->next;
-            begin->next = pre;
-            pre = begin;
-            begin = tmp;
-        }
-        return pre;
-    }
-}
+
+ ListNode* reverseKGroup(ListNode* head, int k) {
+     if(head==NULL || k==0) return head;
+     ListNode* end = head;
+     for(int i=0;i<k;i++){
+         if(end==NULL) return head; //1. 注意end位置
+         end = end->next; 
+     }
+     ListNode* newHead = reverse(head,end); //2.
+     head->next = reverseKGroup(end,k);      //3.
+    return newHead;     //4. return节点
+ }
+
+// ->S...->E->...间隔链表的转置
+ ListNode* reverse(ListNode* s, ListNode* e){
+     ListNode* pre = NULL;
+     while(s!=e){
+         ListNode* tmp = s->next;
+         s->next = pre;
+         pre = s;
+         s = tmp;
+     }
+     return pre;        //相当于return 初始的形参s节点,s->next=NULL而已
+ }
 
 /*
 指针和引用的区别？

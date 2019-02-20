@@ -1,36 +1,35 @@
-/*  ×¢Òâµ½ÒÔÏÂÇé¿ö
-1.Í·½áµãÖ¸ÕëÎªNULL
+/*  æ³¨æ„åˆ°ä»¥ä¸‹æƒ…å†µ
+1.å¤´ç»“ç‚¹æŒ‡é’ˆä¸ºNULL
 2.k==0
-3.kÖµ´óÓÚÁ´±í³¤¶È
+3.kå€¼å¤§äºé“¾è¡¨é•¿åº¦
 */
+#include "func.h"
 ListNode* findKthTail(ListNode* head,int k){
-    if(head==NULL || k==0)
-        return NULL;
-    ListNode* ahead = head;
-    ListNode* slow = head;
+    if(head==NULL || k==0) return 0;
+    ListNode* fast = head;
     for(int i=0;i<k;i++){
-        if(ahead->next!=NULL)               //¹Ø¼ü3.·ÀÖ¹kµÄÖµ´óÓÚÁ´±í³¤¶ÈµÄÇé¿ö
-            ahead = ahead->next;
-        else
-            return NULL;
-    while(ahead->next!=NULL){
+        if(fast==NULL) return NULL;     //kå€¼å¤§äºé“¾è¡¨é•¿åº¦
+        fast = fast->next;
+    }
+    ListNode* slow = head;
+    while(fast!=NULL){
         slow = slow->next;
-        ahead = ahead->next;
+        fast = fast->next;
     }
     return slow;
 }
 
-//ÍÆ¹ã2. ÇóÁ´±íÖĞ¼ä½Úµã
-//fast slowÖ¸Õë
+//æ¨å¹¿2. æ±‚é“¾è¡¨ä¸­é—´èŠ‚ç‚¹
+//fast slowæŒ‡é’ˆ
 
 
-//ÍÆ¹ã3. ÅĞ¶ÏÁ´±íÊÇ·ñ´æÔÚ»·Â·
-//leetcode 141 Ò»´ÎAC 2017/12/25
+//æ¨å¹¿3. åˆ¤æ–­é“¾è¡¨æ˜¯å¦å­˜åœ¨ç¯è·¯
+//leetcode 141 ä¸€æ¬¡AC 2017/12/25
     bool hasCycle(ListNode *head) {
         if(head == NULL || head->next==NULL) return false;   //1.
         ListNode* fast = head;
         ListNode* slow = head;
-        while(fast!=NULL && fast->next != NULL){             //2.Î²½Úµã
+        while(fast!=NULL && fast->next != NULL){             //2.å°¾èŠ‚ç‚¹
             fast = fast->next->next;
             slow = slow->next;
             if(fast == slow) return true;
@@ -38,7 +37,7 @@ ListNode* findKthTail(ListNode* head,int k){
         return false;
     }
 
-//ÍÆ¹ã4. Èç¹ûÁ´±í´æÔÚ»· ·µ»ØcycleµÄÆğÊ¼½áµã
+//æ¨å¹¿4. å¦‚æœé“¾è¡¨å­˜åœ¨ç¯ è¿”å›cycleçš„èµ·å§‹ç»“ç‚¹
 //leetcode142
 ListNode *detectCycle(ListNode *head) {
     if(head==NULL || head->next==NULL) return NULL;
@@ -46,11 +45,11 @@ ListNode *detectCycle(ListNode *head) {
     while(fast!=NULL && fast->next!=NULL){
         fast = fast->next->next;
         slow = slow->next;
-        if(slow == fast) break;             //slow fastÏàÓöºó
+        if(slow == fast) break;             //slow fastç›¸é‡å
     }
     if(fast==NULL || fast->next==NULL)
         return NULL;
-    while(slow!=ans){                       //slow Óë ´ËÊ±³ö·¢µÄans ±ØÈ»ÏàÓöÓÚcycleÈë¿Ú
+    while(slow!=ans){                       //slow ä¸ æ­¤æ—¶å‡ºå‘çš„ans å¿…ç„¶ç›¸é‡äºcycleå…¥å£
         slow = slow->next;
         ans = ans->next;
     }
@@ -58,5 +57,5 @@ ListNode *detectCycle(ListNode *head) {
 }
 
 
-//leetcode142 ·½·¨2
-//set ´æ´¢±éÀú¹ıµÄ½áµã  µ±³öÏÖµÚÒ»¸ö³öÏÖÔÚset¼¯ºÏÖĞ½áµã¼´ÎªcycleµÄÈë¿Ú
+//leetcode142 æ–¹æ³•2
+//set å­˜å‚¨éå†è¿‡çš„ç»“ç‚¹  å½“å‡ºç°ç¬¬ä¸€ä¸ªå‡ºç°åœ¨seté›†åˆä¸­ç»“ç‚¹å³ä¸ºcycleçš„å…¥å£
