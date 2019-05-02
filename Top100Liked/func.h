@@ -16,6 +16,7 @@
 #include<unordered_map>
 #include<hash_set>
 #include <utility>
+#include <queue>
 #include<algorithm>
 using std::cout;
 using std::endl;
@@ -27,5 +28,6 @@ using std::multiset;
 using std::map;
 using std::stringstream;
 using std::unordered_map;
+using std::queue;
 
 #endif // __FUNC__
