@@ -12,8 +12,8 @@ public:
     int numIslands(vector<vector<char>>& grid) {
         int count = 0;
         row = grid.size();
-        column = grid[0].size();
         if( row == 0 ) return 0;
+        column = grid[0].size();
         for(int i=0;i<row; i++){
             for(int j=0;j<column;j++)
                 if(grid[i][j] == '1'){
@@ -25,7 +25,7 @@ public:
     }
 
     void DFSMarking(vector<vector<char>>& grid, int i, int j){
-        if(i<0 || j>0 || i<=row || j>=column || grid[i][j]!='1') return ;
+        if(i<0 || j<0 || i>=row || j>=column || grid[i][j]!='1') return ;
         grid[i][j] = '0';       //可到达的点 标识为0
         DFSMarking(grid,i+1,j);
         DFSMarking(grid,i-1,j);
