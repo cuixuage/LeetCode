@@ -44,8 +44,8 @@ vector<int> inorderTraversal(TreeNode* root) {
         else{
             TreeNode* node = rootStack.top();
             rootStack.pop();
-            inorder.push_back(node->val);  //在所有left结点加入stack后
-            p = node->right;
+            inorder.push_back(node->val);
+            p = node->right;               //关键  更新pre到右子树 (画图理解节点p)
         }
     }
     return inorder;

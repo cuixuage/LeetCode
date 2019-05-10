@@ -1,6 +1,8 @@
 /*
 思路核心:
 fast指针和slow指针相遇时,距离关系fast=2*slow
+fast = L1 + L2 + n*c
+slow = L1 + L2
 推导得: L1 = (n-1)*C + C-L2
 1.记录fast slow相遇点meet
 2.meet和初始head同时同速移动,再相遇点即为环的入口节点

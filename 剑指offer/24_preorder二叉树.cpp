@@ -5,7 +5,7 @@
 */
 
 #include "func.h"
-vector<vector<int>> preorderTraversal(TreeNode* root){
+vector<int> preorderTraversal(TreeNode* root){
     vector<int> ans;
     stack<TreeNode*> s;
     if(root == NULL) return ans;

@@ -10,7 +10,7 @@
 bool isSubtree(TreeNode* A,TreeNode* B){
     bool ans = false;
     if(A!=NULL && B!=NULL){
-        if(A->val == B->val) asn = isSame2(A,B);
+        if(A->val == B->val) ans = isSame2(A,B);
         if(!ans) ans = isSubtree(A->left,B);
         if(!ans) ans = isSubtree(A->right,B);
     }
