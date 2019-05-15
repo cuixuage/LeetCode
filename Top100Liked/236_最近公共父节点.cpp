@@ -6,7 +6,7 @@
 root->node的路径问题
 */
 
-/////////////////////////////////////AC
+/////////////////////////////////////AC’
 struct TreeNode{
     TreeNode* left;
     TreeNode* right;
