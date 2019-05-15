@@ -30,5 +30,5 @@ using std::map;
 using std::stringstream;
 using std::unordered_map;
 using std::queue;
-
+using std::find;
 #endif // __FUNC__
