@@ -25,4 +25,5 @@ bool canPartition(vector<int>& nums){
 /*
 1, 5, 11, 5  return true
 dp[j] = dp[j] || dp[j - nums[i]]         (nums[i] <= j <= target)
+target = 11,dp_size = 11
 */
