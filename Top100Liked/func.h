@@ -19,6 +19,7 @@
 #include <utility>
 #include <queue>
 #include<algorithm>
+#include<limits>
 using std::cout;
 using std::endl;
 using std::string;
@@ -30,5 +31,5 @@ using std::map;
 using std::stringstream;
 using std::unordered_map;
 using std::queue;
-using std::find;
+using std::find;    
 #endif // __FUNC__
