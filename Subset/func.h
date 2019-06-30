@@ -25,5 +25,5 @@ using std::multiset;
 using std::map;
 using std::stringstream;
 using std::unordered_map;
-
+using std::multimap;
 #endif // __FUNC__
