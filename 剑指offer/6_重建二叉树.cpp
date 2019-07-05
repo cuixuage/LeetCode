@@ -1,8 +1,8 @@
 /* 
 前序遍历和中序遍历重构二叉树,假设所有节点中没有重复val值
 注意:helper函数传递的参数 && 节点位置计算
-1.根据preorder[prestart]确定root->val
-2.寻找inorder片段中的root->val
+1.确定root val & index
+2.左右的子树的起点位置 和 终点位置
 3.递归
 */
 

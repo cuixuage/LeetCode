@@ -28,6 +28,7 @@ bool hasPathSum(TreeNode* root, int sum){
 
 //BFS
 //更好理解  缺点: 修改了树的结构
+// 添加到 vector<vector<int>>  可行？？
 bool hasPathSum(TreeNode* root, int sum){
     if(root==NULL) return false;
     queue<TreeNode*> q;

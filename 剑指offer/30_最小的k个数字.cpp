@@ -1,6 +1,6 @@
 #include"func.h"
-//Ë¼Â·1 ¶þ·Ö²éÕÒ+partition(ÐÞ¸ÄÁËÔ­Êý×é)
-//kÎ»ÖÃµÄ×ó²à¶¼ÊÇÐ¡ÓÚËüµÄÊý×Ö Æä×ó²à¼´ÎªÕýÈ·´ð°¸ O(n)
+//äºŒåˆ†æŸ¥æ‰¾ + quicksort
+//kÎ»ï¿½Ãµï¿½ï¿½ï¿½à¶¼ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½à¼´Îªï¿½ï¿½È·ï¿½ï¿½ O(n)
 int partitionArray(int* nums,int low,int high){
 //int partitionArray(vector<int>& nums,int low,int high){
     int tmp=low;
@@ -13,7 +13,7 @@ int partitionArray(int* nums,int low,int high){
     std::swap(nums[low],nums[tmp]);
     return low;
 }
-void getLeastNumbers(int* input,int n,int* output,int k){//Ô­Êý×éinput,´ð°¸±£´æÔÚoutput
+void getLeastNumbers(int* input,int n,int* output,int k){//Ô­ï¿½ï¿½ï¿½ï¿½input,ï¿½ð°¸±ï¿½ï¿½ï¿½ï¿½ï¿½output
     if(output==NULL || input==NULL) return;
     int low=0;
     int high=n-1;
@@ -26,15 +26,15 @@ void getLeastNumbers(int* input,int n,int* output,int k){//Ô­Êý×éinput,´ð°¸±£´æÔ
             low=index+1;
             index=partitionArray(input,low,high);
         }
-    }//k-1ÐòºÅÎ»ÖÃ×ó²àËùÓÐÊý¾Ý¼´×îÐ¡k¸öÊý×ÖÁË(²»Ò»¶¨ÊÇÅÅÐòµÄ)
+    }//k-1ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½Ð¡kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     for(int i=0;i<k;i++)
         output[i]=input[i];
 }
 
-//Ë¼Â·2 º£Á¿Êý¾Ý¡ª¡ª¶ÑÅÅÐò
-//×îÐ¡µÄk¸öÊý×Ö£ºÖ»±£´æk¸öÔªËØµÄ×î´ó¶Ñ¡ª¡ªÖ»ÓÐµ±Ç°ÔªËØÐ¡ÓÚ¶Ñ¶¥ÔªËØÊ±:Ìæ»»top²¢ÖØ¹¹¶Ñ
-//×îÖÕµÃµ½ËùÓÐÔªËØÖÐ×îÐ¡k¸ö  O(n*logk)
-//×î´ó¶ÑÊµÏÖ: priority_queue<int> »òÕß multiset<int,greater<int>>  set\map±¾Éí»á°ÑkeyÖµÉýÐòÅÅÁÐ
+//Ë¼Â·2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½Ð¡ï¿½ï¿½kï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½kï¿½ï¿½Ôªï¿½Øµï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ö»ï¿½Ðµï¿½Ç°Ôªï¿½ï¿½Ð¡ï¿½Ú¶Ñ¶ï¿½Ôªï¿½ï¿½Ê±:ï¿½æ»»topï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ÕµÃµï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡kï¿½ï¿½  O(n*logk)
+//ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½: priority_queue<int> ï¿½ï¿½ï¿½ï¿½ multiset<int,greater<int>>  set\mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyÖµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 void getLeastNumbers_2(const vector<int>& input,multiset<int,std::greater<int>>& output,int k){
     output.clear();
@@ -42,7 +42,7 @@ void getLeastNumbers_2(const vector<int>& input,multiset<int,std::greater<int>>&
         if(output.size()<k)
             output.insert(tmp);
 
-        else if(tmp < *(output.begin()) ){        //µ±Ç°ÔªËØÐ¡ÓÚmultisetµÄ¶¥ÔªËØ
+        else if(tmp < *(output.begin()) ){        //ï¿½ï¿½Ç°Ôªï¿½ï¿½Ð¡ï¿½ï¿½multisetï¿½Ä¶ï¿½Ôªï¿½ï¿½
             output.erase(output.begin());
             output.insert(tmp);
         }

@@ -1,7 +1,8 @@
 /*
 无论是何种遍历方式必然用到DFS思路
 思路preorder:
-1. root->left->right 注意出栈顺序
+1.stack 取出top元素(上一层的left)
+2.加入本层的left,right
 */
 
 #include "func.h"

@@ -1,8 +1,8 @@
 /*
 判断B是不是A的子树
 思路：
-1.在A中寻找等于B根节点值的若干节点 set R
-2.对于节点集合R,再去判断其子树是否和B相同
+1.寻找same root val
+2.同一个root下. left,right子树val
 */
 
 #include "func.h"
