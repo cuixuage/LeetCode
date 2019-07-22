@@ -15,16 +15,11 @@ TreeNode* buildTree(vector<int>& preorder,vector<int>&inorder){
 //先算一个length长度
 
 
-
-
-
-
-
-
-
-
-
-
+递归参数: Ps,Pe,Is,Ie
+Ps==root,在Is,Ie之间寻找根节点的index
+左子树的长度 = index-Is
+left = (Ps+1, Ps+index-Is, Is, index-1) 
+right = (ps+index-Is+1,Pe,index+1,Ie)
 
 
 
