@@ -20,3 +20,6 @@ vector<int> PrintFromTopToBottom(TreeNode* root){
     } 
     return ans;
 }
+
+//trick
+// 每一层循环q.size()的大小的left,right =》BFS层级遍历
