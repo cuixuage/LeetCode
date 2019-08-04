@@ -10,7 +10,7 @@ Output: 7
 Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 */
 #include "func.h"
-//dp[i][j] = std::max(dp[i-1][j]+nums[i][j],dp[i][j-1]+nums[i][j])
+//dp[i][j] = std::min(dp[i-1][j]+nums[i][j],dp[i][j-1]+nums[i][j])
 int minPathSum(vector<vector<int>>& grid){
     int row = grid.size();
     int column = grid[0].size();

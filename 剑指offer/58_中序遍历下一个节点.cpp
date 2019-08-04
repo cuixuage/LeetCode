@@ -13,12 +13,12 @@
 #include "func.h"
 struct BinaryTreeNode {
     int val;
-    BinaryTreeNode* parent;
+    BinaryTreeNode* parent;     //其parant节点
     BinaryTreeNode* left;
     BinaryTreeNode* right;
 };
 
-BinaryTreeNode* GetNext(BinaryTreeNode* root){
+BinaryTreeNode* GetNext(BinaryTreeNode* root){      //查找root节点的下一个节点
     if(root == NULL) return NULL;
     BinaryTreeNode* next_node = NULL;
     //2.1
