@@ -2,6 +2,8 @@
 正确思路:  
 寻找连续的递增序列的若干区间。所有的递增区间都是一次买入卖出的操作，最后将所有利润求和
 DP: profitVal[] 以当前元素为止的最大利润
+
+关键点:
 dp[i] = dp[i-1]+prices[i]-prices[i-1]    (仍处于递增区间)
       = dp[i-1]     
 */
@@ -20,6 +22,7 @@ int maxProfit(vector<int>& prices){
     }
     return profit;
 }
+
 
 //思路1:  根据121题目 + 贪心  每次找最小最大
 //错误e.g.   [7,1,5,3,6,4] output:5  expected:7

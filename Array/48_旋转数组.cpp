@@ -16,7 +16,7 @@ void rotate(vector<vector<int>>& matrix){
     std::reverse(matrix.begin(),matrix.end());
     //右上角 左下角
     for(int i=0;i<matrix.size();i++){
-        for(int j=i;j<matrix[i].size();j++)
+        for(int j=i;j<matrix[i].size();j++)     //关键
             //matrix[i][j]是右上角
             std::swap(matrix[i][j],matrix[j][i]);
     }

@@ -14,3 +14,15 @@ ListNode* reverseList(ListNode* head){
     }
     return pre;
 }
+
+//递归版本的链表转置  画图理解
+ListNode* reverseList(ListNode* head){
+    if(head==NULL || head->next==NULL) return head;
+    return reverseList(NULL,head);          //参数 pre节点,cur节点
+}
+ListNode* reverseList(ListNode* pre, ListNode* cur){
+    if(cur==NULL) return pre;
+    ListNode* next = cur->next;
+    cur->next = pre;
+    return reverseList(cur,next);
+}

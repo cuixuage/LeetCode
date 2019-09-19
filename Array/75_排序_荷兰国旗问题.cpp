@@ -18,7 +18,7 @@ void sortColors(vector<int>& nums){
     int p1 = 0; //数字0的右边界,开区间
     int p2 = nums.size()-1; //数字2的左边界,开区间
     int cur = 0;    
-    while(cur <= p2){           //终止循环条件
+    while(cur <= p2){           //终止循环条件      这里是小于等于
         if(nums[cur]==0){
             std::swap(nums[p1],nums[cur]);
             p1 ++;
@@ -34,7 +34,13 @@ void sortColors(vector<int>& nums){
     }
 }
 
-
+// while 循环不加小于等于则:
+// Input
+// [2,0,1]
+// Output
+// [1,0,2]
+// Expected
+// [0,1,2]
 
 
 void sortColors(vector<int>& nums) {

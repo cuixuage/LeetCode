@@ -9,6 +9,8 @@ dp[i] = dp[i-1]&&str[i] in list ||
     dp[i-2]&&str[i-1,i] in list ||
     dp[i-3]&&str[i-2,i] in list......
 */
+
+//如果将wordDict转化为hashtable 那么查找速度还可以更快
 #include "func.h"
 bool wordBreak(string s, vector<string>& wordDict){
     vector<bool> dp(s.size()+1,false);

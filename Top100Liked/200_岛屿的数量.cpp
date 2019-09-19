@@ -17,7 +17,7 @@ public:
         for(int i=0;i<row; i++){
             for(int j=0;j<column;j++)
                 if(grid[i][j] == '1'){
-                    DFSMarking(grid,i,j);
+                    DFSMarking(grid,i,j);       //i,j起点位置
                     ++count;
                 }
         } 
@@ -25,8 +25,10 @@ public:
     }
 
     void DFSMarking(vector<vector<char>>& grid, int i, int j){
+        //1.先写终止条件 关键:grid[i][j]!='1'
         if(i<0 || j<0 || i>=row || j>=column || grid[i][j]!='1') return ;
-        grid[i][j] = '0';       //可到达的点 标识为0
+        //2.已到达位置标记为'0'
+        grid[i][j] = '0'; 
         DFSMarking(grid,i+1,j);
         DFSMarking(grid,i-1,j);
         DFSMarking(grid,i,j+1);

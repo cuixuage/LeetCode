@@ -1,6 +1,18 @@
 /*
 从边界开始所有能和‘O’链接的O不会被替换
 其它的元素被替换为X
+Example:
+
+X X X X
+X O O X
+X X O X
+X O X X
+After running your function, the board should be:
+
+X X X X
+X X X X
+X X X X
+X O X X
 */
 
 class Solution{
@@ -13,7 +25,7 @@ public:
         for(int i=0;i<rowNum;i++){
             //检查第一列和最后一列
             check(board,i,0);
-            if(colNum>1) check(board,i,colNum-1);
+            if(colNum>1) check(board,i,colNum-1);          
         } 
         for(int j=1;j<colNum-1;j++){
             //检查第一行和最后一行
@@ -25,7 +37,7 @@ public:
             for(int j=0;j<colNum;j++)
                 if(board[i][j]=='O') 
                     board[i][j]='X';
-                else if(board[i][j]=='1') 
+                else if(board[i][j]=='1')       //边界起始可达,再重新标记为'O'
                     board[i][j]='O';
         }
     }
@@ -34,7 +46,7 @@ private:
     int rowNum;
     int colNum;
     void check(vector<vector<char>>& vec,int i,int j){
-        //对于边界是'0'的元素 递归寻找所有相连的'O'
+        //对于边界是'0'的元素 递归寻找所有相连的'O'.  将其标记为1
         if(vec[i][j]=='O'){
             vec[i][j]='1';
             if(i>1) check(vec,i-1,j);

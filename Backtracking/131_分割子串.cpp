@@ -13,6 +13,7 @@ public:
         return ret;
     }
 private:
+//思路1: 拿到所有子集元素; 再挑选出符合回文的结果
     void dfs(int index,string& s,vector<string>& path,vector<vector<string>>& ret){
         if(index ==s.size()){
             ret.push_back(path);

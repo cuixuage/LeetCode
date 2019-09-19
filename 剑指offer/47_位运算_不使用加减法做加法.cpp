@@ -1,6 +1,8 @@
 /*
 使用位运算 求和两个整数数字
 */
+
+
 #include "func.h"
 int Add(int num1,int num2){
     int sum = 0;
@@ -14,3 +16,4 @@ int Add(int num1,int num2){
     }while(num2 != 0);    //e.g. num1=3,num2=0时
     return sum;
 }
+

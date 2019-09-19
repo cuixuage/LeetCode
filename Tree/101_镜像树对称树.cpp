@@ -1,22 +1,23 @@
-//ÅÐ¶ÏÒ»¸ö¶þ²æÊ÷ ÊÇ·ñ×óÓÒ¶Ô³Æ
 
-//µÝ¹éÐÎÊ½
+//åˆ¤æ–­ å¯¹ç§°æ ‘
+// å…³é”®åœ¨äºŽé€’å½’  helper(left->left,right->right) && helper(left->right,right->left);
+
 bool isSymmetric(TreeNode* root) {
     if(root == NULL) return true;
-    return helper(root->left,root->right);  //´«µÝ×óÓÒ×ÓÊ÷µÄ ¸ù
+    return helper(root->left,root->right);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 }
 int helper(TreeNode* left, TreeNode* right){
     if(!left || !right)
-        return left==right;             //µ±left==right==NULL·µ»Øtrue
+        return left==right;             //ï¿½ï¿½left==right==NULLï¿½ï¿½ï¿½ï¿½true
     else if(left->val != right->val)
-        return false;                   //ture²»ÄÜËæ±ã·µ»Ø;  ±ØÐëÒªÈ«²¿µÝ¹éÍê±Ï²ÅÄÜ·µ»Øtrue
+        return false;                   //tureï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·µï¿½ï¿½;  ï¿½ï¿½ï¿½ï¿½ÒªÈ«ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½Ï²ï¿½ï¿½Ü·ï¿½ï¿½ï¿½true
 
-    //¶Ô³ÆÐÔµÄµÝ¹é
+    //ï¿½Ô³ï¿½ï¿½ÔµÄµÝ¹ï¿½
     return helper(left->left,right->right) &&
             helper(left->right,right->left);
 }
 
 
-//·ÇµÝ¹éÐÎÊ½£¿£¿
+//ï¿½ÇµÝ¹ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
 https://leetcode.com/problems/symmetric-tree/discuss/

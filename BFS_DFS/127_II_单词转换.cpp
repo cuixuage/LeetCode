@@ -1,5 +1,8 @@
 //经典的BFS结构
 
+
+//最短路径  ==》  BFS
+//queue每一层代表一个字符的转换
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         //unorder_set 初始化
@@ -10,7 +13,7 @@ public:
         int dist = 2;
         while (!toVisit.empty()) {
             int num = toVisit.size();
-            for (int i = 0; i < num; i++) {
+            for (int i = 0; i < num; i++) {     //关键:  只将当前层级遍历,没找到: 意味着需要两步转换
                 string word = toVisit.front();
                 toVisit.pop();
                 if (word == endWord) return dist;

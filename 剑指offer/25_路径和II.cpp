@@ -18,9 +18,10 @@ public:
 private:
     void pathSum(TreeNode* root, int sum, vector<int>&path,vector<vector<int>>& ans){
         if(root==NULL) return;
-        path.push_back(root->val);
         //1.
-        if(!root->left && !root->right && sum==root->val)
+        path.push_back(root->val);
+        //3.
+        if(!root->left && !root->right && sum==root->val)           ///////关键
             ans.push_back(path);
         pathSum(root->left,sum - root->val,path,ans);
         pathSum(root->right,sum - root->val,path,ans);

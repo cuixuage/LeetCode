@@ -13,7 +13,7 @@ void backtrack(vector<vector<int>>& ans, vector<int>& tmp, vector<int>&origin){
         ans.push_back(tmp);
     else{
         for(int i=0;i<origin.size();i++){
-            if(std::find(tmp.begin(),tmp.end(),origin[i]) != tmp.end()) continue;
+            if(std::find(tmp.begin(),tmp.end(),origin[i]) != tmp.end()) continue;           //元素已经被使用了
             tmp.push_back(origin[i]);
             backtrack(ans,tmp,origin);
             tmp.pop_back();

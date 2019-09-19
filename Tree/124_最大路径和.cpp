@@ -1,39 +1,22 @@
-/*²»ÐèÒªÍ¨¹ýroot,ÖÁÉÙÒ»¸ö½áµã,Çó×î´óµÄÂ·¾¶ºÍ*/
 
-//¶Ô±È129Ìâ Ë¼Â·ÀàËÆ
-//1.È«¾Ö±äÁ¿±£´æ×îÖÕ½á¹û(·½±ãÔÚÃ¿Ò»´ÎµÝ¹éÖÐÐÞ¸Ä)
-//×îºÃ²»ÒªÊ¹ÓÃÈ«¾Ö±äÁ¿
+/*
+æ€è·¯  ==>  äºŒå‰æ ‘çš„æœ€å¤§ç›´å¾„
+åŽåºéåŽ†æ—¶, åœ¨rootèŠ‚ç‚¹ç»Ÿè®¡æ·±åº¦ or æƒé‡å’Œ
+*/
 
 #include"func.h"
 
 public:
 int maxPathSum(TreeNode* root){
     int maxvalue = INT_MIN;
-    maxPathDown(root,maxvalue);         //±ðµ÷ÓÃ³É×Ô¼ºÁË
+    maxPathDown(root,maxvalue); 
     return maxvalue;
 }
 private:
 int maxPathDown(TreeNode* node, int& maxvalue){
     if(node==NULL) return 0;
-    int left= std::max(0,maxPathDown(node->left,maxvalue));        //×ó×ÓÊ÷ÖÐ×î³¤µÄÂ·¾¶
+    int left= std::max(0,maxPathDown(node->left,maxvalue));         //å…³é”®ç‚¹:  å¦‚æžœæƒé‡ä¸ºè´Ÿæ•°  ä¼šè¢«ä¸¢å¼ƒæŽ‰
     int right = std::max(0,maxPathDown(node->right,maxvalue));
-    maxvalue = std::max(maxvalue,left+right+node->val); //¶ÔÓÚÈÎºÎÒ»¸önode½áµãÀ´Ëµ,ËüÖ®ÏÂµÄ×î³¤Â·¾¶=left×ÓÊ÷+right×ÓÊ÷+×ÔÉí->val
-    return std::max(left,right)+node->val;              //·µ»Øµ½´ïnode(¸¸½Úµã,À´×ÔÓÚµ¥²à)µÄ×î³¤Â·¾¶
+    maxvalue = std::max(maxvalue,left+right+node->val);             //åŽåºéåŽ†æ€è·¯
+    return std::max(left,right)+node->val;                         //æœ€å¤§ç›´å¾„é—®é¢˜:  return max(left,right)+1
 }
-
-/*È«¾Ö±äÁ¿
-    int maxvalue;
-int maxPathSum(TreeNode* root){
-    maxvalue = INT_MIN;
-    maxPathDown(root);
-    return maxvalue;
-}
-
-int maxPathDown(TreeNode* node){
-    if(node==NULL) return 0;
-    int left=std::max(0,maxPathDown(node->left));        //×ó×ÓÊ÷ÖÐ×î³¤µÄÂ·¾¶
-    int right = std::max(0,maxPathDown(node->right));
-    maxvalue = std::max(maxvalue,left+right+node->val);
-    return std::max(left,right)+node->val;               //¶ÔÓÚÈÎºÎÒ»¸önode½áµãÀ´Ëµ,ËüÖ®ÏÂµÄ×î³¤Â·¾¶=left×ÓÊ÷+right×ÓÊ÷+×ÔÉí->val
-}
-*/

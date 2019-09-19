@@ -12,7 +12,7 @@ h=遍历元素高,wide=i-j-1   记录maxArea
 主要idea: 递增的序列总能在下一步找到最大值
 */
 
-int largestRectanleArea(vector<int>& heights){
+int largestRectangleArea(vector<int>& heights){
     int maxarea=0;
     heights.push_back(0);       //input + 0
     std::vector<int> stack;     //vector模拟stack
@@ -20,7 +20,7 @@ int largestRectanleArea(vector<int>& heights){
     for(int i=0;i<heights.size();i++){
         //遇到小于stack.top元素
         //开始向left遍历stack
-        while(stack.size()>0 && heights[stack.back()]>=heights[i]){
+        while(stack.size()>0 && heights[i]<=heights[stack.back()]){
             int h = heights[stack.back()];
             stack.pop_back();
             

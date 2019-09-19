@@ -10,6 +10,7 @@
 #include<unordered_map>
 #include<sstream>
 #include<algorithm>
+#include<queue>
 using std::cout;
 using std::endl;
 using std::string;
@@ -18,5 +19,6 @@ using std::vector;
 using std::set;
 using std::unordered_map;
 using std::stringstream;
+using std::priority_queue;
 
 #endif // __FUNC__

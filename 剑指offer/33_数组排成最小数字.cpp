@@ -7,8 +7,12 @@ vector<int>数组所有元素组成的最小整数
 
 #include "func.h"
 //compare函数写在类内的时候  需要加上static标识
+
+
+//思路1:  求全排列问题 再拼接起来比较大小
+//思路2: 
 static bool compare(const string& a,const string& b){   //关键
-    string t1 = a+b;
+    string t1 = a+b;        //拼接字符串 e.g. “321”+“32”=="32132"
     string t2 = b+a;
     return t1<t2?true:false;
 }

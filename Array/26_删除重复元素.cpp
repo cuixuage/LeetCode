@@ -1,6 +1,7 @@
 //删除数组中的重复元素
 //辅助pointer  记录非重复的个数
 //便利的i速度大于pointer的增长速度
+///////////////////////////////////////////////////////////已经排序好的数组(重复元素在一起)
 int removeDuplicates(vector<int>& nums){
     if(nums.size()<=1) return nums.size();
     int pointer = 1;

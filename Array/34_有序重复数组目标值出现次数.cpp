@@ -3,6 +3,13 @@ Input: nums = [5,7,7,8,8,10], target = 8
 Output: [3,4]
 */
 
+//O(log N) 二分查找
+// 确定目标值的左右边界
+
+
+
+
+//O(N)
 vector<int> searchRange(vector<int>& nums, int target) {
     vector<int> res(2,-1);
     if(nums.size()==0)    return res; 

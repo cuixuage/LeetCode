@@ -10,7 +10,7 @@
 //递归
 TreeNode* invertTree(TreeNode* root){
     if(root == NULL) return root;
-    //swap
+    //swap   类似于前序遍历
     TreeNode* tmp = root->left;
     root->left = root->right;
     root->right = tmp;

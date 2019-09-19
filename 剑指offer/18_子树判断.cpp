@@ -10,7 +10,7 @@
 bool isSubtree(TreeNode* A,TreeNode* B){
     bool ans = false;
     if(A!=NULL && B!=NULL){
-        if(A->val == B->val) ans = isSame2(A,B);
+        if(A->val == B->val) ans = isSame2(A,B);        //先找到B的根节点在A的位置
         if(!ans) ans = isSubtree(A->left,B);
         if(!ans) ans = isSubtree(A->right,B);
     }
@@ -40,7 +40,7 @@ bool isSame(TreeNode* A, TreeNode* B){
     if(A==NULL && B==NULL) return true;
     if(A==NULL || B==NULL) return false;
     if(A->val != B->val) return false;
-    //val相同 也需要继续递归查找子树
+    ///////////////////////////////////////////注意递归对比的子树
     return isSame(A->left,B->left) && isSame(A->right,B->right);
 }
 

@@ -3,6 +3,9 @@
 给定数组，寻找连续的子集使其乘积最大
 */
 
+// dp[i] = dp[i-1]*nums[i] || nums[i]
+//用2个dp数组分别记录到i时的最大乘积和最小乘积，因为下一个数字如果为负数就可以把最小的乘积是负的变成正的最大值。
+
 //正确DP 存储当前的min max（因为遇到负数时,max值会"反转"）
 int maxProduct(vector<int>& nums){
     int ans = nums[0];

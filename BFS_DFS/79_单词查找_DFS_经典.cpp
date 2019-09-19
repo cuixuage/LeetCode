@@ -35,17 +35,17 @@ private:
     int row;
     int col;
      bool isFound(vector<vector<char>>& board, const char* w,int x,int y){
+         //1. 先写return语句
          if(x<0||y<0||x>=row||y>=col||board[x][y]=='\0'||*w!=board[x][y])
             return false;
-        if(*(w+1)=='\0')
+        if(*(w+1)=='\0')            //到达待查找的str的终点 True
             return true;
-        
+        //2. 再写回溯
         char tmp = board[x][y];
-        board[x][y] = '\0';         //标记已经使用过
-        //相邻元素有一个能满足*(w+1)=='\0'即可
+        board[x][y] = '\0';         //标记已经使用过  //相邻元素有一个能满足*(w+1)=='\0'即可
         if(isFound(board,w+1,x-1,y)||isFound(board,w+1,x+1,y)||isFound(board,w+1,x,y-1)||isFound(board,w+1,x,y+1))
             return true;
-        board[x][y] = tmp;
+        board[x][y] = tmp;          //回溯
         return false;
      }
 }

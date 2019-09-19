@@ -1,9 +1,39 @@
 /*
 merge k sorted list
-思路： 
-循环调用merge 2 list funtion
+思路:  循环调用merge 2 list funtion
+
+最优思路:  priority_queue
 */
 #include "func.h"
+
+ListNode* mergeKLists(vector<ListNode*>& lists){
+    if(lists.size()==0) return NULL;
+    // auto cmp = [](const ListNode* a, const ListNode* b)->bool{return a->val < b->val;};
+    struct compare {
+        bool operator()(const ListNode* l, const ListNode* r) {
+            return l->val > r->val;
+        }
+    };
+    priority_queue<ListNode*, vector<ListNode*>, compare> Q;
+
+    ListNode* pre = new ListNode(0);
+    ListNode* tmp = pre; 
+    for(ListNode* node : lists)
+        if(node!=NULL) Q.push(node);    //初始化
+
+    while(!Q.empty()){
+        tmp->next = Q.top();
+        Q.pop();
+        tmp = tmp->next;    //1.更新tmp位置
+        if(tmp->next!=NULL)     //top节点所在的链表的下一个节点 
+            Q.push(tmp->next);
+    }
+    //delete pre?
+    return pre->next;
+}
+
+
+
 
 class solution{
 public:

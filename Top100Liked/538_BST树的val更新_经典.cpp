@@ -25,3 +25,6 @@ public:
         convert(root->left);
     }
 }
+
+
+//利用中序遍历的val是递增的性质

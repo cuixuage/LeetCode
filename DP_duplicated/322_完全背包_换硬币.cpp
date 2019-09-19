@@ -5,7 +5,7 @@
 价值:1      目标:最小化使用数量
 
 completePack 顺序 (而非逆序)
-==> dp[i][v] = max{dp[i-1][v],dp[i][v-ci]+wi}
+==> dp[i][v] = min{dp[i-1][v],dp[i][v-ci]+wi}
 */
 #include "func.h"
 
@@ -23,4 +23,18 @@ int coinChange(vector<int>& coins, int target){
         completepack(F,coin,1);
     }
     return F.back()==my_max?-1:F.back();
+}
+
+int coinChange(vector<int>& coins, int target){
+    int my_max = target+1;
+    int V = target;
+    int I = coins.size();
+    vector<vector<int>> dp(I+1,vector<int>(V+1,my_max));
+    dp[0][0] = 0;
+    
+    for(int i=1;i<=I;i++){
+        for(int j=coins[i];j<=V;j++)
+            dp[i][j] = std::min(dp[i-1][j],dp[i][j-coins[i]]+1);
+    }
+    return dp[I][V]==my_max?-1:dp[I-1][V];
 }

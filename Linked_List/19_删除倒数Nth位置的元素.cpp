@@ -10,7 +10,7 @@ ListNode* removeNthFromEnd(ListNode* head,int n){
     ListNode* fast = head;
     while(fast!=NULL && n--)
         fast = fast->next;
-    if(fast==NULL)  return head->next;
+    if(fast==NULL)  return head->next;      //关键:  当N==链表长度时,删除头结点
     while(fast->next!=NULL){
         slow = slow->next;
         fast = fast->next;

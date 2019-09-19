@@ -1,6 +1,9 @@
 #include "func.h"
 /*
 BFS 如何理解？
+Input: "()())()"
+Output: ["()()()", "(())()"]
+
 */
 void remove(string s,vector<string>& ans, int last_i, int last_j, vector<char> par){
     for(int stack=0,i=last_i;i<s.length(); ++i){

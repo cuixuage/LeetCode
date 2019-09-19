@@ -15,7 +15,7 @@ Output:
   []
 ]
 
-907. Sum of Subarray Minimums  要求子序列是原来的连续元素了
+907. Sum of Subarray Minimums  要求自己是原来的连续元素了
 */
 
 //idea:  递推思路  Accept

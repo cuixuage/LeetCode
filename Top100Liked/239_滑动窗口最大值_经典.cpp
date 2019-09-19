@@ -28,3 +28,16 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k){
     }
     return ans;
 }
+
+/*
+|||||||||||
+front       back
+
+dequeue的front   back区分好
+元素都是在back位置加入
+
+1.删除dequeue front元素(超出滑动窗口)
+2.从back开始 删除小于cur-val的index
+3.cur-val 加入dequeue.back
+4.front 即为当前max-val
+*/

@@ -6,9 +6,12 @@
 
 
 思路: 
-旋转后的数组mid > start, 则旋转点在右侧
+////////////////////////////////////////////////// 二分查找的关键点    如何判断mid左右两侧,哪边为升序？哪边依旧是乱序？
+旋转后的数组mid > start, 则旋转点在右侧                 
            mid < end, 则旋转点在左侧
             start == mid == end, 那么只能顺序遍历确定旋转点
+
+
 while(a[start] >= a[end]){
     if(end - start == 1) return a[end];
     mid = (end+start)/2;

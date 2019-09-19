@@ -2,9 +2,100 @@
 /*
 一共有0,1,2...,n-1门课程; 给定先决条件,判断是否能上完这n门课程
 先决条件array = [[after_curse,pre_course],[after_course,pre_course]]
-
-判断图是不是有环
 */
+
+/*
+目标: 判断图是不是有环
+无权有向图  ==> 二维邻接数组保存顶点和顶点的方向  && 一维数组保存顶点的入度大小
+只有入度为零的顶点,才会加入队列
+*/
+bool cycleJudge(vector<vector<int>>& edge, vector<int>& inDegree, int nodeNum){
+    queue<int> Q;
+    for(int i=0;i<inDegree.size();i++)
+        if(inDegree[i]==0) Q.push(i);          //入度为0的顶点加入Queue
+    int my_count = 0;
+    while(!Q.empty()){
+        int cur = Q.front();
+        Q.pop();
+        my_count ++;
+        for(int i=0;i<edge[cur].size();i++){   //1.相连节点的入度减一 2.入度为0,则加入Queue
+            int other_node = edge[cur][i];
+            inDegree[other_node] --;
+            if(inDegree[other_node] == 0)
+                Q.push(other_node);
+        }
+    }
+    return my_count==nodeNum?true:false;
+}
+
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites){
+    vector<vector<int>> edge(numCourses,vector<int>());
+    vector<int> inDegree(numCourses,0);
+        for(auto tmp : prerequisites){
+            edge[tmp[1]].push_back(tmp[0]);
+            inDegree[tmp[0]]++;
+        }
+    return cycleJudge(edge, inDegree, numCourses);
+}
+
+
+
+
+
+
+
+//leetcode 答案
+//https://leetcode.com/problems/course-schedule/discuss/58509/C%2B%2B-BFSDFS
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        graph g = buildGraph(numCourses, prerequisites);
+        vector<int> degrees = computeIndegrees(g);
+        for (int i = 0; i < numCourses; i++) {
+            int j = 0;
+            for (; j < numCourses; j++) {
+                if (!degrees[j]) {
+                    break;
+                }
+            }
+            if (j == numCourses) {
+                return false;
+            }
+            degrees[j]--;
+            for (int v : g[j]) {
+                degrees[v]--;
+            }
+        }
+        return true;
+    }
+private:
+    typedef vector<vector<int>> graph;
+    
+    graph buildGraph(int numCourses, vector<pair<int, int>>& prerequisites) {
+        graph g(numCourses);
+        for (auto p : prerequisites) {
+            g[p.second].push_back(p.first);
+        }
+        return g;
+    }
+    
+    vector<int> computeIndegrees(graph& g) {
+        vector<int> degrees(g.size(), 0);
+        for (auto adj : g) {
+            for (int v : adj) {
+                degrees[v]++;
+            }
+        }
+        return degrees;
+    }
+};
+
+
+
+
+
+
 
 //AC
 class Digraph_Leetcode{

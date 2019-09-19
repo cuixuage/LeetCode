@@ -45,7 +45,7 @@ vector<int> inorderTraversal(TreeNode* root) {
             TreeNode* node = rootStack.top();
             rootStack.pop();
             inorder.push_back(node->val);
-            p = node->right;               //关键  更新pre到右子树 (画图理解节点p)
+            p = node->right;               //关键  更新pre到node的右子树 (画图理解节点p)  此时node节点是左子树的最后一个
         }
     }
     return inorder;

@@ -5,14 +5,15 @@
 //方法2   注意范围  我更喜欢这样
 private:
 TreeNode* sortedArrayToBST2(vector<int>& nums,int start, int end){
-    //小于等于
+    // 先写return函数
     if(end < start) return NULL;
-    //避免超出int范围
     int mid = start + (end-start)/2;
     TreeNode* root = new TreeNode(nums[mid]);
+
     //注意left right 的范围
     root->left = sortedArrayToBST2(nums,start,mid-1);
     root->right = sortedArrayToBST2(nums,mid+1,end);
+    
     return root;
 }
 public:

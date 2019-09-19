@@ -18,7 +18,7 @@ int helper(TreeNode* root, int& diameter){
     int ld = helper(root->left, diameter);
     int rd = helper(rot->right, diameter);
     //1.
-    diameter = std::max(diameter, ld+rd);
+    diameter = std::max(diameter, ld+rd);      //关键计算点？？？  思想: 对于每一个节点计算其左右子树的深度值和
     //2.
-    return std::max(ld, rd)+1;      //类似于二叉树的深度题目
+    return std::max(ld, rd)+1;      //二叉树的深度题目
 }

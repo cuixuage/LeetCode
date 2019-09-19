@@ -8,7 +8,7 @@
 sum(P)-sum(N) = target
 sum(P)+sum(N)+sum(P)-sum(N) = target + sum(P) + sum(N)
 即 2*sum(P) = target + sum(array)
-即 target_val + sum(array)必须是偶数，问题转化为: 子集和为某一个定值的情况数目
+即 target_val + sum(array)必须是偶数，问题转化为: 子集和为某一个定值的情况数目     关键
 
 leetcode 560.subarray sum equals K ("连续"子序列问题)
 leetcode 78. subset（无重复元素的所有子集 e.g.二叉树思想=DFS回溯）

@@ -16,14 +16,16 @@ public:
 private:
     TreeNode* sortedListToBST(ListNode* head, ListNode* tail){
         if(head == tail) return NULL;
+
+        //1. 返回条件:  new节点
         if(head->next == tail){
             TreeNode* root = new TreeNode(head->val);
             return root;
         }
-        //寻找片段的middle节点
+
+        //2. 递归左右子树 
         ListNode* slow=head,*fast = head;
-        while(fast->next!=tail &&fast->next->next!=tail){
-        // while(fast!=tail && fast->next!=tail){  //也是成立的
+        while(fast!=tail && fast->next!=tail){
             slow = slow->next;
             fast = fast->next->next;
         }

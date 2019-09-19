@@ -29,6 +29,8 @@ bool isBalanced(TreeNode* root){
 /*
 O(N)时间复杂度
 自下而上的思路  避免在子树上重复计算
+
+类似于后续遍历的思路
 */
 class Solution{
 public:
@@ -42,6 +44,7 @@ private:
         if(root == NULL) return 0;
         int left = TreeDepth(root->left);
         int right = TreeDepth(root->right);
+        //类似于后续遍历的处理做法
         if(std::abs(left-right)>1)
             flag = false;
         return 1+std::max(left,right);

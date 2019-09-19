@@ -14,12 +14,12 @@ For k = 3, you should return: 3->2->1->4->5
      if(head==NULL || k==0) return head;
      ListNode* end = head;
      for(int i=0;i<k;i++){
-         if(end==NULL) return head; //1. 注意end位置
+         if(end==NULL) return head; //1. 关键  仔细思考
          end = end->next; 
      }
      ListNode* newHead = reverse(head,end); //2.
-     head->next = reverseKGroup(end,k);      //3.
-    return newHead;     //4. return节点
+     head->next = reverseKGroup(end,k);      //3.  关键   仔细思考
+    return newHead;     //4. 
  }
 
 // ->S...->E->...间隔链表的转置
@@ -31,8 +31,10 @@ For k = 3, you should return: 3->2->1->4->5
          pre = s;
          s = tmp;
      }
-     return pre;        //相当于return 初始的形参s节点,s->next=NULL而已
+     return pre;        //转置后的头结点
  }
+
+ 
 
 /*
 指针和引用的区别？

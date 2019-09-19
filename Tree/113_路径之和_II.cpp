@@ -1,12 +1,14 @@
-/*·µ»Ø rootµ½leafÖ®ºÍµÈÓÚsum µÄÂ·¾¶½ÚµãÐòÁÐ*/
-//Ë¼Â·: DFS(¾­µäµÄ»ØËÝÎÊÌâ) ¶Ô±È112Ìâ
-//×¢ÊÍ: DFS ×ÐÏ¸Àí½â µÝ¹éÊ±·µ»ØµÄË³Ðò ÒÔ¼° path.pop()Î»ÖÃ
+/*ï¿½ï¿½ï¿½ï¿½ rootï¿½ï¿½leafÖ®ï¿½Íµï¿½ï¿½ï¿½sum ï¿½ï¿½Â·ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½*/
+//Ë¼Â·: DFS(ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½Ô±ï¿½112ï¿½ï¿½
+//×¢ï¿½ï¿½: DFS ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½Ê±ï¿½ï¿½ï¿½Øµï¿½Ë³ï¿½ï¿½ ï¿½Ô¼ï¿½ path.pop()Î»ï¿½ï¿½
+
+//è®°å½•è·¯å¾„å’Œ==targetè·¯å¾„
 
 public:
 vector<vector<int>> pathSum(TreeNode* root,int sum){
     vector<vector<int>> ans;
     vector<int> path;
-    findPaths(root,sum,path,ans);  //´«µÝÒýÓÃ
+    findPaths(root,sum,path,ans);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     return ans;
 }
 private:
@@ -15,10 +17,10 @@ void findPaths(TreeNode* node,int sum,vector<int>& path,vector<vector<int>>& ans
     path.push_back(node->val);
     if(!(node->left) && !(node->right)&& sum==node->val)
         ans.push_back(path);
-        //×ÐÏ¸Ë¼¿¼»ØËÝ£¨DFS£©ÊÇÈçºÎ½â¾öÎÊÌâµÄ
+        //ï¿½ï¿½Ï¸Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½DFSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     findPaths(node->left,sum-node->val,path,ans);
     findPaths(node->right,sum-node->val,path,ans);
-    //×¢Òâpop_backµÄÎ»ÖÃ
+    //×¢ï¿½ï¿½pop_backï¿½ï¿½Î»ï¿½ï¿½
     path.pop_back();
 }
 };

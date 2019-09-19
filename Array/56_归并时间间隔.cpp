@@ -1,7 +1,7 @@
 /*
 collection of intervals to merge
 思路:
-1.按照start时间排序
+1.按照"开始时间" 升序排列
 2.不断将interval和vector<int>.back 作比较
 如果新的intervel.start 小于 back.end ,则归并。
 否则vector.push_back(intervel)
@@ -17,10 +17,10 @@ public:
         res.push_back(ins[0]);
         
         for(Interval i:ins){
-            if(res.back().end < i.start)
+            if(res.back().end < i.start)        //没有交集
                 res.push_back(i);
             else
-                res.back().end = std::max(res.back().end, i.end);
+                res.back().end = std::max(res.back().end, i.end);       //直接修改end_val
         }
         return res;
     }

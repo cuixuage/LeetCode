@@ -15,7 +15,7 @@ public:
         int n = nums.size();
         //连续的数字 放入同一个集合
         UionFind uf(n);
-        unordered_map<int,int> hashMap;
+        unordered_map<int,int> hashMap;   //hashmap一般做倒排。  key:数组元素   val  val:数组index
         //O(n)
         for(int i=0;i<n;i++){
 

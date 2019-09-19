@@ -5,7 +5,9 @@
 DP[i][j]代表以当前点作为右下角的正方形的size大小
 e.g.  
 当dp[i][j]为数字0时,其能构成的正方形size=0
-当dp[i][j]为数字1时, 作为右下角size= min{dp[i-1][j-1], dp[i-1][j],dp[i][j-1]} + 1
+当dp[i][j]为数字1时, 作为右下角size= min{dp[i-1][j-1], dp[i-1][j],dp[i][j-1]} + 1   
+
+注意:  dp这里是min
 */
 
 #include"func.h"
@@ -17,7 +19,7 @@ int maximalSquare(vector<vector<char>>& matrix){
     vector<vector<int>> dp(row, vector<int>(col,0));
     for(int i=0; i<row; i++){
         for(int j=0;j<col;j++){
-            if(i==0 || j==0 || matrix[i][j]=='0')
+            if(i==0 || j==0 || matrix[i][j]=='0')           //数组初始化
                 dp[i][j] = matrix[i][j] - '0';
             else
                 dp[i][j] = std::min(dp[i-1][j-1],std::min(dp[i-1][j],dp[i][j-1])) + 1;      //要理解

@@ -18,7 +18,7 @@ int firstMissingPositive(vector<int>& nums){
     for(int i=0;i<len;i++){
         //正数 && A[i]-1不越界
         //注意这里的while
-        while(nums[i]>0 && nums[i]<=len){
+        while(nums[i]>0 && nums[i]<=len){           //注意条件:  nums[i]<=len使while并不会死循环
             if(nums[i] != nums[nums[i]-1])
                 std::swap(nums[i],nums[nums[i]-1]);
             else

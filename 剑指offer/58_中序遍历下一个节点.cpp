@@ -1,5 +1,5 @@
 /*
-给定二叉树TreeNode* root,寻找某个节点的下一个节点
+给定二叉树TreeNode* root,寻找某个节点的中序遍历下一个节点
 思路1:
 按照中序遍历保存每一个指针,再遍历寻找
 思路2：
@@ -30,9 +30,9 @@ BinaryTreeNode* GetNext(BinaryTreeNode* root){      //查找root节点的下一�
     //2.2 2.3
         BinaryTreeNode* parent = root->parent;
         BinaryTreeNode* cur = root;
-        while(parent!=NULL && cur==parent->right){
+        while(parent!=NULL && cur==parent->right){      //2.3 其是父节点的右子节点
             cur = parent;
-            parent = parent->parent;
+            parent = parent->parent;            //存在parent指针,指向父节点
         }
         return parent;
     }

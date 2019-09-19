@@ -7,6 +7,7 @@
 #include<string>
 #include<set>
 #include<stack>
+#include<queue>
 #include<vector>
 #include<sstream>
 #include<limits>
@@ -25,5 +26,6 @@ using std::multiset;
 using std::map;
 using std::stringstream;
 using std::unordered_map;
+using std::queue;
 
 #endif // __FUNC__

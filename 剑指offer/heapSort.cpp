@@ -26,12 +26,13 @@ void sink(vector<int>& nums, int k, int n){
         //2.
         if(!less(nums,k,j)) break;
         swap(nums,k,j);
+        //3.
         k = j;
     }
 }
 void heapSort(vector<int>& nums){
     int n = nums.size();
-    //1.
+    //1. 构建大顶堆
     for(int k=n/2; k>=1; k--)
         sink(nums,k,n);
     //2.
@@ -40,3 +41,22 @@ void heapSort(vector<int>& nums){
         sink(nums,1,n);     //注意n的值发生改变
     }
 }
+
+/*
+目标:  升序排列数组
+
+1.构建大顶堆 
+for(k=n/2; k>1; k++)
+    sink(arr,k,n)
+    1.1. sink函数
+    while(k*2 <= n)
+        寻找子节点的最大值 j
+        if 需要将父节点k值做交换
+            将节点k和其子节点的最大值做交换(下沉)
+        else
+            break
+2.while(n>1) 将最大值放在数组末尾
+    arr[1],arr[n];
+    n--;
+    sink(arr,i,n)
+*/

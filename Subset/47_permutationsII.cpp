@@ -28,7 +28,7 @@ vector<vector<int>> permuteUnique(vector<int>& nums){
     vector<vector<int>> ans;
     vector<int> tmp;
     vector<bool> used(nums.size(),false);
-    std::sort(nums.begin(),nums.end());
+    std::sort(nums.begin(),nums.end());          //先排序
     backtrack(ans,tmp,nums,used);
     return ans;
 }

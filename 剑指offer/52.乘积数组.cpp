@@ -12,11 +12,11 @@ vector<int> multiply(const vector<int>& A ){
     vector<int> B(length,0);
     vector<int> D(length,0);
     vector<int> C(length,0);
-    //正序
+    //正序   相当于自下而上
     C[0] = 1;
     for(int i=1;i<length;i++)
         C[i] = C[i-1]*A[i-1];
-    //逆序
+    //逆序   相当于自上而下
     D[length-1] = 1;
     for(int i=length-2;i>=0;i--)
         D[i] = D[i+1] * A[i+1];

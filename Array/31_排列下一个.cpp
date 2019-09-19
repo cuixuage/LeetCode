@@ -5,7 +5,7 @@ e.g. 123 -》 132
 思路:
 1.寻找到最大k,使得nums[k]<nums[k+1].  如果不存在这样的k则reverse nums
 2.寻找最大l,使得nums[l]>nums[k] ,交换k,l
-3.转置nums[k+1],nums[size-1]
+3.转置 [nums[k+1],End]
 */
 
 void nextPermutation(vector<int>& nums){

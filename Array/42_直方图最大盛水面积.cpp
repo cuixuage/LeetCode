@@ -6,6 +6,9 @@ two points分别是左右maxLeft maxRight边界
 思路=注水  而非直接计算面积(w*h)
 */
 
+//头尾指针向中间移动
+//头结点移动过程中:  max_left表示头指针左侧的最高
+//尾节点移动过程中:  max_right表示尾指针右侧的最高
 int trap(vector<int>& heights){
     int left = 0;
     int right = heights.size()-1;
